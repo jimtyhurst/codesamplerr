@@ -27,7 +27,7 @@ p
 # Sets legend title and legend labels:
 p + scale_color_discrete(
   name = "Source Type",
-  breaks = c("a", "b"), # a, b are the values in sales$order_type
+  breaks = c("a", "b"),
   labels = c("A Sales", "B Sales")
 )
 # Other ways to set the legend title, but not the legend labels

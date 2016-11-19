@@ -11,4 +11,5 @@ LazyData: true
 Suggests:
     ggplot2,
     jsonlite,
+    testthat,
     tidyjson

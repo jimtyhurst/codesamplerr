@@ -1,4 +1,3 @@
-
 # Demonstrates use of tidyjson package, especially handling of NULL,
 # empty objects, and empty lists.
 
@@ -11,33 +10,33 @@ test_that("single object yields one row", {
   bookJson <- '[
     {"author": "Susan Cain", "copyrightYear": 2012, "name": "Quiet"}
   ]'
-  books <- bookJson %>% 
-    as.tbl_json %>% 
-    gather_array %>% 
+  books <- bookJson %>%
+    as.tbl_json %>%
+    gather_array %>%
     spread_values(
       author = jstring("author"),
       copyrightYear = jnumber("copyrightYear"),
       title = jstring("name")
     )
-  expect_equal(length(books$author), 1)  
+  expect_equal(length(books$author), 1)
 })
 
 test_that("simple properties yield simple rows", {
   bookJson <- '[
-    { "author": "Susan Cain", 
-      "copyrightYear": 2012, 
-      "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"}, 
-    { "author": 
-      "Sophia Dembling", 
-      "copyrightYear": 2012, 
-      "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"}, 
-    { "author": "Marti Olsen Laney", 
-      "copyrightYear": 2002, 
+    { "author": "Susan Cain",
+      "copyrightYear": 2012,
+      "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"},
+    { "author":
+      "Sophia Dembling",
+      "copyrightYear": 2012,
+      "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"},
+    { "author": "Marti Olsen Laney",
+      "copyrightYear": 2002,
       "name": "The Introvert Advantage: How to Thrive in An Extrovert World"}
   ]'
-  books <- bookJson %>% 
-    as.tbl_json %>% 
-    gather_array %>% 
+  books <- bookJson %>%
+    as.tbl_json %>%
+    gather_array %>%
     spread_values(
       author = jstring("author"),
       copyrightYear = jnumber("copyrightYear"),
@@ -51,13 +50,13 @@ test_that("simple properties yield simple rows", {
 
 test_that("null 'copyrightYear' value yields NA value in data.frame", {
   bookJson <- '[
-    {"author": "Susan Cain", "copyrightYear": null, "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"}, 
-    {"author": "Sophia Dembling", "copyrightYear": 2012, "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"}, 
+    {"author": "Susan Cain", "copyrightYear": null, "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"},
+    {"author": "Sophia Dembling", "copyrightYear": 2012, "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"},
     {"author": "Marti Olsen Laney", "copyrightYear": 2002, "name": "The Introvert Advantage: How to Thrive in An Extrovert World"}
   ]'
-  books <- bookJson %>% 
-    as.tbl_json %>% 
-    gather_array %>% 
+  books <- bookJson %>%
+    as.tbl_json %>%
+    gather_array %>%
     spread_values(
       author = jstring("author"),
       copyrightYear = jnumber("copyrightYear"),
@@ -68,22 +67,22 @@ test_that("null 'copyrightYear' value yields NA value in data.frame", {
 
 test_that("empty 'comment' object yields NA value in data.frame", {
   bookJson <- '[
-    { "author": "Susan Cain", 
-      "copyrightYear": 2012, 
-      "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking", 
-      "comment": {}}, 
-    { "author": "Sophia Dembling", 
-      "copyrightYear": 2012, 
-      "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World", 
-      "comment": {"author": "ZZ", "text": "Excellent!"}}, 
-    { "author": "Marti Olsen Laney", 
-      "copyrightYear": 2002, 
-      "name": "The Introvert Advantage: How to Thrive in An Extrovert World", 
+    { "author": "Susan Cain",
+      "copyrightYear": 2012,
+      "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking",
+      "comment": {}},
+    { "author": "Sophia Dembling",
+      "copyrightYear": 2012,
+      "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World",
+      "comment": {"author": "ZZ", "text": "Excellent!"}},
+    { "author": "Marti Olsen Laney",
+      "copyrightYear": 2002,
+      "name": "The Introvert Advantage: How to Thrive in An Extrovert World",
       "comment": {"author": "Zoe", "text": "Recommended"}}
   ]'
-  books <- bookJson %>% 
-    as.tbl_json %>% 
-    gather_array %>% 
+  books <- bookJson %>%
+    as.tbl_json %>%
+    gather_array %>%
     spread_values(
       author = jstring("author"),
       copyrightYear = jnumber("copyrightYear"),
@@ -97,38 +96,38 @@ test_that("empty 'comment' object yields NA value in data.frame", {
 
 test_that("array of 'comments' yields repeated data in data.frame", {
   bookJson <- '[
-    { "author": "Susan Cain", 
-      "comments": [{"author": "Jordan", "text": "Powerful"}], 
-      "copyrightYear": 2012, 
+    { "author": "Susan Cain",
+      "comments": [{"author": "Jordan", "text": "Powerful"}],
+      "copyrightYear": 2012,
       "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"
-    }, 
-    { "author": "Sophia Dembling", 
+    },
+    { "author": "Sophia Dembling",
       "comments": [
         {"author": "ZZ", "text": "Excellent"}
-      ], 
-      "copyrightYear": 2012, 
+      ],
+      "copyrightYear": 2012,
       "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"
-    }, 
-    { "author": "Marti Olsen Laney", 
+    },
+    { "author": "Marti Olsen Laney",
       "comments": [
-        {"author": "Alana", "text": "Boring!"}, 
-        {"author": "Monique", "text": "Chouette!"}, 
+        {"author": "Alana", "text": "Boring!"},
+        {"author": "Monique", "text": "Chouette!"},
         {"author": "Zoe", "text": "Recommended"}
-      ], 
-      "copyrightYear": 2002, 
+      ],
+      "copyrightYear": 2002,
       "name": "The Introvert Advantage: How to Thrive in An Extrovert World"
     }
   ]'
-  books <- bookJson %>% 
-    as.tbl_json %>% 
-    gather_array %>% 
+  books <- bookJson %>%
+    as.tbl_json %>%
+    gather_array %>%
     spread_values(
       author = jstring("author"),
       copyrightYear = jnumber("copyrightYear"),
       title = jstring("name")
-    ) %>% 
-    enter_object("comments") %>% 
-    gather_array %>% 
+    ) %>%
+    enter_object("comments") %>%
+    gather_array %>%
     spread_values(
       commenter = jstring("author"),
       comment = jstring("text")
@@ -149,44 +148,44 @@ test_that("array of 'comments' yields repeated data in data.frame", {
 
 test_that("empty array of 'comments' yields missing row in data.frame", {
   bookJson <- '[
-    { "author": "Susan Cain", 
-      "comments": [], 
-      "copyrightYear": 2012, 
+    { "author": "Susan Cain",
+      "comments": [],
+      "copyrightYear": 2012,
       "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"
-    }, 
-    { "author": "Sophia Dembling", 
+    },
+    { "author": "Sophia Dembling",
       "comments": [
         {"author": "ZZ", "text": "Excellent"}
-      ], 
-      "copyrightYear": 2012, 
+      ],
+      "copyrightYear": 2012,
       "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"
-    }, 
-    { "author": "Marti Olsen Laney", 
+    },
+    { "author": "Marti Olsen Laney",
       "comments": [
-        {"author": "Alana", "text": "Boring!"}, 
-        {"author": "Monique", "text": "Chouette!"}, 
+        {"author": "Alana", "text": "Boring!"},
+        {"author": "Monique", "text": "Chouette!"},
         {"author": "Zoe", "text": "Recommended"}
-      ], 
-      "copyrightYear": 2002, 
+      ],
+      "copyrightYear": 2002,
       "name": "The Introvert Advantage: How to Thrive in An Extrovert World"
     }
   ]'
-  books <- bookJson %>% 
-    as.tbl_json %>% 
-    gather_array %>% 
+  books <- bookJson %>%
+    as.tbl_json %>%
+    gather_array %>%
     spread_values(
       author = jstring("author"),
       copyrightYear = jnumber("copyrightYear"),
       title = jstring("name")
-    ) %>% 
-    enter_object("comments") %>% 
-    gather_array %>% 
+    ) %>%
+    enter_object("comments") %>%
+    gather_array %>%
     spread_values(
       commenter = jstring("author"),
       comment = jstring("text")
     )
   # I expected 'Susan Cain' with NA for comments, *but*
-  #   the result does *not* include 'Susan Cain' in data, 
+  #   the result does *not* include 'Susan Cain' in data,
   #   due to empty list of comments.
   # Expect 3 commenters on Laney's book, causing repeat in 'author' column.
   expect_equal(length(books$author), 4)
@@ -199,5 +198,3 @@ test_that("empty array of 'comments' yields missing row in data.frame", {
   expect_equal(books$commenter[3], "Monique")
   expect_equal(books$commenter[4], "Zoe")
 })
-
-

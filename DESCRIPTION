@@ -1,9 +1,14 @@
 Package: codesamplerr
-Title: What the Package Does (one line, title case)
+Title: Scratchpad of sample code to demonstrate functions in various R packages.
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Jim", "Tyhurst", email = "jim@tyhurst.com", role = c("aut", "cre"))
+Description: I keep this package as a scratchpad for when I need to learn
+    some feature or function.
 Depends: R (>= 3.3.2)
-License: What license is it under?
+License: MIT
 Encoding: UTF-8
 LazyData: true
+Suggests:
+    ggplot2,
+    jsonlite,
+    tidyjson

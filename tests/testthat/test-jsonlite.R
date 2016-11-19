@@ -1,27 +1,24 @@
-# Demonstrates use of tidyjson package, especially handling of null,
+# Demonstrates use of jsonlite package, especially handling of null,
 # empty objects, and empty lists.
+# For jsonlite documentation, see the vignettes listed at:
+#   https://cran.r-project.org/package=jsonlite
 
-library(tidyjson)
+library(jsonlite)
 library(testthat)
 
-context("tidyson")
-
-test_that("single object yields one row", {
+test_that("single object yields one row.", {
   bookJson <- '[
     {"author": "Susan Cain", "copyrightYear": 2012, "name": "Quiet"}
   ]'
   books <- bookJson %>%
-    as.tbl_json %>%
-    gather_array %>%
-    spread_values(
-      author = jstring("author"),
-      copyrightYear = jnumber("copyrightYear"),
-      title = jstring("name")
-    )
+    jsonlite::fromJSON(simplifyVector = TRUE)
   expect_equal(length(books$author), 1)
+  expect_equal(books$author[1], "Susan Cain")
+  expect_equal(books$copyrightYear[1], 2012)
+  expect_equal(books$name[1], "Quiet")
 })
 
-test_that("simple properties yield simple rows", {
+test_that("simple properties yield simple rows.", {
   bookJson <- '[
     { "author": "Susan Cain",
       "copyrightYear": 2012,
@@ -35,33 +32,21 @@ test_that("simple properties yield simple rows", {
       "name": "The Introvert Advantage: How to Thrive in An Extrovert World"}
   ]'
   books <- bookJson %>%
-    as.tbl_json %>%
-    gather_array %>%
-    spread_values(
-      author = jstring("author"),
-      copyrightYear = jnumber("copyrightYear"),
-      title = jstring("name")
-    )
+    jsonlite::fromJSON(simplifyVector = TRUE)
   expect_length(books$author, 3)
   expect_that(books$author[2], equals("Sophia Dembling"))
   expect_that(books$copyrightYear[2], equals(2012))
-  expect_that(books$title[2], equals("The Introvert\'s Way: Living A Quiet Life in A Noisy World"))
+  expect_that(books$name[2], equals("The Introvert's Way: Living A Quiet Life in A Noisy World"))
 })
 
-test_that("null 'copyrightYear' value yields NA value in data.frame", {
+test_that("null 'copyrightYear' value yields NA value in data.frame.", {
   bookJson <- '[
     {"author": "Susan Cain", "copyrightYear": null, "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"},
     {"author": "Sophia Dembling", "copyrightYear": 2012, "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"},
     {"author": "Marti Olsen Laney", "copyrightYear": 2002, "name": "The Introvert Advantage: How to Thrive in An Extrovert World"}
   ]'
   books <- bookJson %>%
-    as.tbl_json %>%
-    gather_array %>%
-    spread_values(
-      author = jstring("author"),
-      copyrightYear = jnumber("copyrightYear"),
-      title = jstring("name")
-    )
+    jsonlite::fromJSON(simplifyVector = TRUE)
   expect_true(is.na(books$copyrightYear[1]))
 })
 
@@ -81,20 +66,17 @@ test_that("empty 'comment' object yields NA value in data.frame", {
       "comment": {"author": "Zoe", "text": "Recommended"}}
   ]'
   books <- bookJson %>%
-    as.tbl_json %>%
-    gather_array %>%
-    spread_values(
-      author = jstring("author"),
-      copyrightYear = jnumber("copyrightYear"),
-      title = jstring("name"),
-      commenter = jstring("comment", "author"),
-      comment = jstring("comment", "text")
-    )
-  expect_true(is.na(books$commenter[1]))
-  expect_equal(books$commenter[3], "Zoe")
+    jsonlite::fromJSON(simplifyVector = TRUE)
+  # Expect NA for empty object.
+  expect_true(is.na(books$comment$author[1]))
+  expect_equal(books$comment$author[2], "ZZ")
+  expect_equal(books$comment$author[3], "Zoe")
+  expect_true(is.na(books$comment$text[1]))
+  expect_equal(books$comment$text[2], "Excellent!")
+  expect_equal(books$comment$text[3], "Recommended")
 })
 
-test_that("array of 'comments' yields repeated data in data.frame", {
+test_that("array of 'comments' yields embedded data.frame of comment objects.", {
   bookJson <- '[
     { "author": "Susan Cain",
       "comments": [{"author": "Jordan", "text": "Powerful"}],
@@ -102,9 +84,7 @@ test_that("array of 'comments' yields repeated data in data.frame", {
       "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"
     },
     { "author": "Sophia Dembling",
-      "comments": [
-        {"author": "ZZ", "text": "Excellent"}
-      ],
+      "comments": [{"author": "ZZ", "text": "Excellent"}],
       "copyrightYear": 2012,
       "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"
     },
@@ -119,40 +99,26 @@ test_that("array of 'comments' yields repeated data in data.frame", {
     }
   ]'
   books <- bookJson %>%
-    as.tbl_json %>%
-    gather_array %>%
-    spread_values(
-      author = jstring("author"),
-      copyrightYear = jnumber("copyrightYear"),
-      title = jstring("name")
-    ) %>%
-    enter_object("comments") %>%
-    gather_array %>%
-    spread_values(
-      commenter = jstring("author"),
-      comment = jstring("text")
-    )
-  # Expect 3 commenters on Laney's book, causing repeat in 'author' column.
-  expect_equal(length(books$author), 5)
+    jsonlite::fromJSON(simplifyVector = TRUE)
+  # Expect 3 commenters on Laney's book, embedded in books[3, "comments"].
+  expect_equal(length(books$author), 3)
   expect_equal(books$author[1], "Susan Cain")
   expect_equal(books$author[2], "Sophia Dembling")
   expect_equal(books$author[3], "Marti Olsen Laney")
-  expect_equal(books$author[4], "Marti Olsen Laney")
-  expect_equal(books$author[5], "Marti Olsen Laney")
-  expect_equal(books$commenter[1], "Jordan")
-  expect_equal(books$commenter[2], "ZZ")
-  expect_equal(books$commenter[3], "Alana")
-  expect_equal(books$commenter[4], "Monique")
-  expect_equal(books$commenter[5], "Zoe")
+  expect_equal(books[1, "comments"][[1]]$author[1], "Jordan")
+  expect_equal(books[2, "comments"][[1]]$author[1], "ZZ")
+  expect_equal(books[3, "comments"][[1]]$author[1], "Alana")
+  expect_equal(books[3, "comments"][[1]]$author[2], "Monique")
+  expect_equal(books[3, "comments"][[1]]$author[3], "Zoe")
 })
 
-test_that("empty array of 'comments' yields missing row in data.frame", {
+test_that("empty array of 'comments' yields empty embedded data.frame.", {
   bookJson <- '[
     { "author": "Susan Cain",
       "comments": [],
       "copyrightYear": 2012,
       "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"
-    },
+      },
     { "author": "Sophia Dembling",
       "comments": [
         {"author": "ZZ", "text": "Excellent"}
@@ -171,30 +137,17 @@ test_that("empty array of 'comments' yields missing row in data.frame", {
     }
   ]'
   books <- bookJson %>%
-    as.tbl_json %>%
-    gather_array %>%
-    spread_values(
-      author = jstring("author"),
-      copyrightYear = jnumber("copyrightYear"),
-      title = jstring("name")
-    ) %>%
-    enter_object("comments") %>%
-    gather_array %>%
-    spread_values(
-      commenter = jstring("author"),
-      comment = jstring("text")
-    )
-  # I expected 'Susan Cain' with NA for comments, *but*
-  #   the result does *not* include 'Susan Cain' in data,
-  #   due to empty list of comments.
-  # Expect 3 commenters on Laney's book, causing repeat in 'author' column.
-  expect_equal(length(books$author), 4)
-  expect_equal(books$author[1], "Sophia Dembling")
-  expect_equal(books$author[2], "Marti Olsen Laney")
+    jsonlite::fromJSON(simplifyVector = TRUE)
+  # Expect 0 commenters on Cain's book and 3 commenters on Laney's book.
+  expect_equal(length(books$author), 3)
+  expect_equal(books$author[1], "Susan Cain")
+  expect_equal(books$author[2], "Sophia Dembling")
   expect_equal(books$author[3], "Marti Olsen Laney")
-  expect_equal(books$author[4], "Marti Olsen Laney")
-  expect_equal(books$commenter[1], "ZZ")
-  expect_equal(books$commenter[2], "Alana")
-  expect_equal(books$commenter[3], "Monique")
-  expect_equal(books$commenter[4], "Zoe")
+  expect_equal(length(books[1, "comments"][[1]]), 0)
+  expect_equal(books[2, "comments"][[1]]$author, "ZZ")
+  expect_equal(books[2, "comments"][[1]]$text, "Excellent")
+  expect_equal(books[3, "comments"][[1]]$author[1], "Alana")
+  expect_equal(books[3, "comments"][[1]]$author[2], "Monique")
+  expect_equal(books[3, "comments"][[1]]$text[2], "Chouette!")
+  expect_equal(books[3, "comments"][[1]]$author[3], "Zoe")
 })

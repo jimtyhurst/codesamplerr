@@ -9,7 +9,7 @@ License: MIT
 Encoding: UTF-8
 LazyData: true
 Suggests:
-    ggplot2,
-    jsonlite,
-    testthat,
-    tidyjson
+    ggplot2 (>= 2.1.0),
+    jsonlite (>= 1.1),
+    testthat (>= 1.0.2),
+    tidyjson (>= 0.2.1)

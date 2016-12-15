@@ -1,6 +1,6 @@
 Package: codesamplerr
 Title: Scratchpad of sample code to demonstrate functions in various R packages.
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("Jim", "Tyhurst", email = "jim@tyhurst.com", role = c("aut", "cre"))
 Description: I keep this package as a scratchpad for when I need to learn
     some feature or function.
@@ -10,6 +10,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
     ggplot2 (>= 2.1.0),
+    gmp (>= 0.5-12),
     jsonlite (>= 1.1),
     testthat (>= 1.0.2),
     tidyjson (>= 0.2.1)

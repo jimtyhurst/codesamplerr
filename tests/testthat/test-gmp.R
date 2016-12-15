@@ -9,7 +9,7 @@ test_that("Accuracy is preserved for large integers", {
   expect_equal(999999999999999 - 999999999999998, 1)
 })
 
-test_that("gmp preserves accuracy for large integers", {
+test_that("gmp also preserves accuracy for large integers", {
   # This works fine with 15 digits:
   expect_equal(sub.bigz("999999999999999", "999999999999998"), 1)
 })
@@ -19,7 +19,7 @@ test_that("Accuracy fails for integers that are too large", {
   expect_equal(9999999999999999 - 9999999999999998, 2)
 })
 
-test_that("gmp preserves accuracy for integers that are 'too large'!", {
+test_that("gmp preserves accuracy for integers that are 'too large'", {
   # This works fine with 16 digits:
   expect_equal(sub.bigz("9999999999999999", "9999999999999998"), 1)
 })

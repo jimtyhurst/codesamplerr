@@ -1,0 +1,31 @@
+
+library(testthat)
+library(gmp)
+
+context("gmp package")
+
+test_that("Accuracy is preserved for large integers", {
+  # This works fine with 15 digits:
+  expect_equal(999999999999999 - 999999999999998, 1)
+})
+
+test_that("gmp preserves accuracy for large integers", {
+  # This works fine with 15 digits:
+  expect_equal(sub.bigz("999999999999999", "999999999999998"), 1)
+})
+
+test_that("Accuracy fails for integers that are too large", {
+  # Surprise! With 16 digits, result is 2, rather than 1:
+  expect_equal(9999999999999999 - 9999999999999998, 2)
+})
+
+test_that("gmp preserves accuracy for integers that are 'too large'!", {
+  # This works fine with 16 digits:
+  expect_equal(sub.bigz("9999999999999999", "9999999999999998"), 1)
+})
+
+test_that("Why does gmp produce negative for very large integer?", {
+  # Surprise negative value! Why?
+  expect_true(sub.bigz("9999999999999999") < 0)
+})
+

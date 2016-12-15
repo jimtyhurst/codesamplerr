@@ -6,6 +6,8 @@
 library(jsonlite)
 library(testthat)
 
+context("jsonlite")
+
 test_that("single object yields one row.", {
   bookJson <- '[
     {"author": "Susan Cain", "copyrightYear": 2012, "name": "Quiet"}

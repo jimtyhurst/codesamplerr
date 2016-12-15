@@ -24,8 +24,8 @@ test_that("gmp preserves accuracy for integers that are 'too large'!", {
   expect_equal(sub.bigz("9999999999999999", "9999999999999998"), 1)
 })
 
-test_that("Why does gmp produce negative for very large integer?", {
-  # Surprise negative value! Why?
-  expect_true(sub.bigz("9999999999999999") < 0)
+test_that("Okay to convert individual operands", {
+  # This works fine with 19 digits:
+  expect_equal(sub.bigz(as.bigz("9876543210987654321"), as.bigz("9876543210987654320")), 1)
 })
 

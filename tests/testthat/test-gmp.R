@@ -15,6 +15,7 @@ test_that("gmp also preserves accuracy for large integers", {
 })
 
 test_that("Accuracy fails for integers that are too large", {
+  # See http://geocar.sdf1.org/numbers.html
   # Surprise! With 16 digits, result is 2, rather than 1:
   expect_equal(9999999999999999 - 9999999999999998, 2)
 })

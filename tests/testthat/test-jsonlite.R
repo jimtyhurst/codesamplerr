@@ -52,6 +52,18 @@ test_that("null 'copyrightYear' value yields NA value in data.frame.", {
   expect_true(is.na(books$copyrightYear[1]))
 })
 
+# 2nd record is missing a property.
+test_that("absent property value causes error in conversion to data.frame.", {
+  bookJson <- '[
+    {"author": "Susan Cain", "copyrightYear": 2012, "name": "Quiet: The Power of Introverts in a World That Can\'t Stop Talking"},
+    {"author": "Sophia Dembling", "name": "The Introvert\'s Way: Living A Quiet Life in A Noisy World"},
+    {"author": "Marti Olsen Laney", "copyrightYear": 2002, "name": "The Introvert Advantage: How to Thrive in An Extrovert World"}
+  ]'
+  books <- bookJson %>%
+    jsonlite::fromJSON(simplifyVector = TRUE)
+  expect_true(is.na(books$copyrightYear[2]))
+})
+
 test_that("empty 'comment' object yields NA value in data.frame", {
   bookJson <- '[
     { "author": "Susan Cain",

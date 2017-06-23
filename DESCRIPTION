@@ -10,9 +10,14 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
     cowplot (>= 0.7.0),
+    devtools (>= 1.13.2),
     ggplot2 (>= 2.1.0),
     gmp (>= 0.5-12),
     jsonlite (>= 1.1),
+    knitr (>= 1.16),
+    rmarkdown (>= 1.6),
     roxygen2 (>= 6.0.1),
     testthat (>= 1.0.2),
     tidyjson (>= 0.2.1)
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr

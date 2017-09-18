@@ -18,6 +18,7 @@ Suggests:
     rmarkdown (>= 1.6),
     roxygen2 (>= 6.0.1),
     testthat (>= 1.0.2),
-    tidyjson (>= 0.2.1)
+    tidyjson (>= 0.2.1),
+    tidyverse (>= 1.1.1)
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

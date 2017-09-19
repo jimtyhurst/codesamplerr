@@ -136,8 +136,9 @@ test_that("cut for observations equal to upper bound of a quartile", {
     type = 6
   )
   # 2 observations fall exactly on 25% break point.
-  expect_equal(sum(observations == 0.963884306), 2)
-  expect_equal(quartile_breaks[[2]], 0.963884306)
+  EXPECTED_BREAKPOINT <- 0.963884306
+  expect_equal(sum(observations == EXPECTED_BREAKPOINT), 2)
+  expect_equal(quartile_breaks[[2]], EXPECTED_BREAKPOINT)
 
   # Verify that equal values are put in the same quartile.
   level_codes <- cut(
@@ -150,9 +151,10 @@ test_that("cut for observations equal to upper bound of a quartile", {
   # All observations on upper bound of quartile are assigned to that quartile.
   quartile_assignments <- data.frame(observations, level_codes)
   expect_equal(
-    quartile_assignments[quartile_assignments$observations == 0.963884306, "level_codes"],
+    quartile_assignments[quartile_assignments$observations == EXPECTED_BREAKPOINT, "level_codes"],
     c(1, 1))
-  # Expected number of students in 1st quartile.
+  # Expected number of values in 1st quartile.
   expect_equal(sum(level_codes == 1), 17)
+  expect_true(sum(level_codes == 1) > length(level_codes) / 4)
 })
 

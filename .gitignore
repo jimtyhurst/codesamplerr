@@ -1,5 +1,6 @@
 # Local project-specific files.
 ggsave-output.pdf
+Rplots.pdf
 
 # History files
 .Rhistory

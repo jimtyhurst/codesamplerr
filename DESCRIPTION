@@ -1,11 +1,11 @@
 Package: codesamplerr
-Title: Scratchpad of sample code to demonstrate functions in various R packages.
+Title: Scratchpad of sample code to demonstrate functions in various R packages
 Version: 0.2.0
 Authors@R: person("Jim", "Tyhurst", email = "jim@tyhurst.com", role = c("aut", "cre"))
 Description: I keep this package as a scratchpad for when I need to learn
     some feature or function.
 Depends: R (>= 3.3.2)
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:

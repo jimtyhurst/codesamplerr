@@ -15,13 +15,13 @@ Imports:
     jsonlite (>= 1.1),
     knitr (>= 1.17),
     rmarkdown (>= 1.6),
-    roxygen2 (>= 6.0.1),
-    testthat (>= 2.0.0),
     tidyr (>= 0.7.2),
     tidytext (>= 0.1.8),
     tidyverse (>= 1.1.1)
 Suggests:
+    roxygen2 (>= 6.0.1),
+    testthat (>= 2.0.0),
     cowplot (>= 0.7.0),
     devtools (>= 1.13.4)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

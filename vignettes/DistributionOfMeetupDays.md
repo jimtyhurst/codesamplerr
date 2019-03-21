@@ -2,7 +2,7 @@ Distribution of Meetup Days for the [Portland R User Group
 Meetup](https://www.meetup.com/portland-r-user-group/)
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-15
+2019-03-21
 
   - [The Question](#the-question)
   - [Configuration](#configuration)
@@ -233,9 +233,22 @@ approximately the same number of events each year.
 
 ## Statistical Analysis
 
-I used Fisher’s exact test to see whether the actual distribution varies
-significantly from a uniform distribution across Monday through Thursday
-for the past 3 years:
+If each day Monday - Thursday had an equal probability of being chosen,
+then we would expect roughly the same number of events for each day for
+a large sample of events. That would be a uniform distribution. I want
+to determine whether the actual distribution of events across the four
+days Monday - Thursday is statistically different than a uniform
+distribution.
+
+A [chi-square
+test](https://stats.idre.ucla.edu/sas/whatstat/what-statistical-analysis-should-i-usestatistical-analyses-using-sas/)
+is often used to compare two distributions for categorical variables.
+However, this is a very small set of observations. In particular, the
+observations for the past year have some cells with less than 5
+observations, which violates an assumpution of a chi-square test.
+Therefore, Fisher’s Exact Test is a better choice for comparing the
+actual distribution to a a uniform distribution across Monday through
+Thursday for the past 3 years and for the past year.
 
 ``` r
 actual_distribution <- events %>% 
@@ -259,8 +272,12 @@ print(sprintf(
 ))
 #> [1] "There are 72 total events distributed across 4 weekdays."
 
-# Build uniform distribution with same number of events.
+# Build uniform distribution with same number of events in each of
+# the day slots for Monday - Thursday.
 uniform_distribution <- ceiling(rep(n_events / n_days, n_days))
+
+# Use Fisher's Test on a contingency table with the actual distribution compared
+# to a uniform distribution.
 test_result <- fisher.test(data.frame(
   x = actual_distribution$n, 
   y = uniform_distribution
@@ -278,7 +295,8 @@ Fisher’s Exact Test results in a p-value = `0.0685`, so the difference
 is not significant at a 0.05 level, meaning that events over the past 3
 years are not significantly different from a uniform distribution.
 
-Let’s use the same test restricted to only the past year of events:
+Let’s use the same test restricted to only the past year of events,
+which is a *very* small sample:
 
 ``` r
 actual_distribution <- recent_events %>% 
@@ -302,8 +320,12 @@ print(sprintf(
 ))
 #> [1] "There are 23 total events distributed across 4 days."
 
-# Build uniform distribution with same number of events.
+# Build uniform distribution with same number of events in each of
+# the day slots for Monday - Thursday.
 uniform_distribution <- ceiling(rep(n_events / n_days, n_days))
+
+# Use Fisher's Test on a contingency table with the actual distribution compared
+# to a uniform distribution.
 test_result <- fisher.test(data.frame(
   x = actual_distribution$n, 
   y = uniform_distribution

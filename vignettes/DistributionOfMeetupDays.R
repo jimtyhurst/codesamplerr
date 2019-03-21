@@ -108,8 +108,12 @@ print(sprintf(
   n_days
 ))
 
-# Build uniform distribution with same number of events.
+# Build uniform distribution with same number of events in each of
+# the day slots for Monday - Thursday.
 uniform_distribution <- ceiling(rep(n_events / n_days, n_days))
+
+# Use Fisher's Test on a contingency table with the actual distribution compared
+# to a uniform distribution.
 test_result <- fisher.test(data.frame(
   x = actual_distribution$n, 
   y = uniform_distribution
@@ -130,8 +134,12 @@ print(sprintf(
   n_days
 ))
 
-# Build uniform distribution with same number of events.
+# Build uniform distribution with same number of events in each of
+# the day slots for Monday - Thursday.
 uniform_distribution <- ceiling(rep(n_events / n_days, n_days))
+
+# Use Fisher's Test on a contingency table with the actual distribution compared
+# to a uniform distribution.
 test_result <- fisher.test(data.frame(
   x = actual_distribution$n, 
   y = uniform_distribution

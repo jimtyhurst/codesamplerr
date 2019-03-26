@@ -51,7 +51,7 @@ gains <- weights %>%
 gains %>% 
   ggplot(aes(puppy_id, weight_gain)) + 
   geom_col(fill = puppy_id_to_color) + 
-  ggtitle("Puppy weight gain") +
+  ggtitle("Total weight gain since birth") +
   labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy")
 
 

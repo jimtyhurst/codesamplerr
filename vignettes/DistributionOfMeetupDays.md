@@ -2,7 +2,7 @@ Distribution of Meetup Days for the [Portland R User Group
 Meetup](https://www.meetup.com/portland-r-user-group/)
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-21
+2019-03-26
 
   - [The Question](#the-question)
   - [Configuration](#configuration)
@@ -141,7 +141,7 @@ end_date <- max(events$Day)
 n_events <- length(events$Day)
 events %>% 
   ggplot(aes(DayOfWeekLabel)) +
-  geom_bar() +
+  geom_bar(na.rm = TRUE) +
   ggtitle(sprintf(
     "Distribution of %d Meeting Days: %s to %s",
     n_events,
@@ -167,7 +167,7 @@ recent_events <- events %>% dplyr::filter(Day >= start_date)
 n_events <- length(recent_events$Day)
 recent_events %>% 
   ggplot(aes(DayOfWeekLabel)) +
-  geom_bar() +
+  geom_bar(na.rm = TRUE) +
   ggtitle(sprintf(
     "Distribution of %d Meeting Days: %s to %s",
     n_events,
@@ -193,7 +193,7 @@ end_date <- max(events$Day)
 n_events <- length(events$Day)
 events %>% 
   ggplot(aes(MonthLabel)) +
-  geom_bar() +
+  geom_bar(na.rm = TRUE) +
   ggtitle(sprintf(
     "Distribution of %d Events by Month: %s to %s",
     n_events,
@@ -214,7 +214,7 @@ end_date <- max(events$Day)
 n_events <- length(events$Day)
 events %>% 
   ggplot(aes(Year)) +
-  geom_bar() +
+  geom_bar(na.rm = TRUE) +
   ggtitle(sprintf(
     "Distribution of %d Events by Year: %s to %s",
     n_events,

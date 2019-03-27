@@ -1,12 +1,17 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-26
+2019-03-27
 
+  - [tl;dr](#tldr)
   - [Context](#context)
   - [Configuration](#configuration)
   - [The Data](#the-data)
   - [Exploring the Data](#exploring-the-data)
+
+## tl;dr
+
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ## Context
 
@@ -90,7 +95,7 @@ weights %>%
   labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 Plot the weight gain by individual:
 
@@ -106,7 +111,7 @@ gains %>%
   labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy")
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 🔻 *To Do*: How can I order the ids on the x-axis by the y-value in
 descending order? I want the previous plot to be ordered as: blue,
@@ -135,4 +140,4 @@ weights %>%
   labs(x = "Sex", y = "Mean Weight Gain (ounces)")
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

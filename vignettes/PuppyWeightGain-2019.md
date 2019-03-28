@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-27
+2019-03-28
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -10,6 +10,20 @@ Puppy Weight Gain
   - [Exploring the Data](#exploring-the-data)
 
 ## tl;dr
+
+    #> [1] "Puppy weight by day"
+    #> # A tibble: 9 x 7
+    #>   date        pink emerald orange purple yellow  blue
+    #>   <date>     <dbl>   <dbl>  <dbl>  <dbl>  <dbl> <dbl>
+    #> 1 2019-03-20    17      17     19     16     17    17
+    #> 2 2019-03-21    16      17     18     16     16    16
+    #> 3 2019-03-22    16      16     18     16     16    16
+    #> 4 2019-03-23    15      16     18     15     16    18
+    #> 5 2019-03-24    17      16     19     15     16    19
+    #> 6 2019-03-25    18      17     22     16     16    22
+    #> 7 2019-03-26    18      18     23     18     18    22
+    #> 8 2019-03-27    20      19     24     20     18    25
+    #> 9 2019-03-28    21      20     25     21     20    25
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
@@ -33,8 +47,8 @@ library(ggplot2)
 
 There are two CSV files contained in this package:
 
-  - `inst/extdata/weights-2019/puppies-2019-weight-in-oz.csv`
-  - `inst/extdata/weights-2019/puppies-2019-sex.csv`
+  - `inst/weights-2019/puppies-2019-weight-in-oz.csv`
+  - `inst/weights-2019/puppies-2019-sex.csv`
 
 The puppies were weighed once daily on a digital kitchen scale, which
 measures to a fraction of an ounce, but we rounded to the nearest ounce.
@@ -57,7 +71,11 @@ weight by date for each individual.
 
 ``` r
 # Reads CSV and converts to tidy format.
-weights <- system.file("extdata", "weights-2019", "puppies-2019-weight-in-oz.csv", package = "codesamplerr") %>% 
+weights <- system.file(
+    "weights-2019", 
+    "puppies-2019-weight-in-oz.csv", 
+    package = "codesamplerr"
+  ) %>% 
   readr::read_csv() %>% 
   tidyr::gather(
     'pink', 'emerald', 'orange', 'purple', 'yellow', 'blue',
@@ -74,8 +92,6 @@ weights <- system.file("extdata", "weights-2019", "puppies-2019-weight-in-oz.csv
 #>   yellow = col_double(),
 #>   blue = col_double()
 #> )
-start_date <- min(weights$date)
-end_date <- max(weights$date)
 
 # Plots weight by day.
 # Need to jitter the lines vertically slightly, otherwise one 
@@ -89,9 +105,14 @@ weights %>%
   scale_color_manual(values=puppy_id_to_color) +
   ggtitle("Puppy weight by day") +
   scale_y_continuous(
-    limits = c(12, 24), 
-    breaks = seq(12, 24, by = 2)
+    limits = c(14, 32), 
+    minor_breaks = seq(14, 32, 1),
+    breaks = seq(14, 32, by = 2)
   ) + 
+  theme(
+    panel.grid.minor = element_line(colour="gray50", size=0.5),
+    panel.grid.major = element_line(colour="gray10", size=0.5)
+  ) +
   labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
 ```
 
@@ -117,11 +138,14 @@ gains %>%
 descending order? I want the previous plot to be ordered as: blue,
 orange, pink, … 🔺
 
-Plot the mean difference between weight gain by males and
-females.
+Plot the mean difference between weight gain by males and females.
 
 ``` r
-sex <- system.file("extdata", "weights-2019", "puppies-2019-sex.csv", package = "codesamplerr") %>% 
+sex <- system.file(
+    "weights-2019", 
+    "puppies-2019-sex.csv", 
+    package = "codesamplerr"
+  ) %>% 
   readr::read_csv()
 #> Parsed with column specification:
 #> cols(

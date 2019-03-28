@@ -2,7 +2,7 @@ Distribution of Meetup Days for the [Portland R User Group
 Meetup](https://www.meetup.com/portland-r-user-group/)
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-26
+2019-03-28
 
   - [The Question](#the-question)
   - [Configuration](#configuration)
@@ -50,9 +50,9 @@ library(ggplot2)
 
 ## The Data
 
-[pdxRlang-meetup-days.csv](https://github.com/jimtyhurst/codesamplerr/blob/master/inst/extdata/pdxRlang-meetup-days.csv)
-is a one-column CSV file that has the dates for the last 3 years of
-Events listed on the [Portland R User
+[pdxRlang-meetup-days.csv](../inst/pdxRlang-meetup-days.csv) is a
+one-column CSV file that has the dates for the last 3 years of Events
+listed on the [Portland R User
 Group](https://www.meetup.com/portland-r-user-group/) web site. I
 created the file on 2019-03-15 by browsing the [Past
 Events](https://www.meetup.com/portland-r-user-group/events/past/) web
@@ -94,7 +94,7 @@ Let’s read the data and add variables that will help us to group the
 data:
 
 ``` r
-events <- system.file("extdata", "pdxRlang-meetup-days.csv", package = "codesamplerr") %>% 
+events <- system.file("pdxRlang-meetup-days.csv", package = "codesamplerr") %>% 
   readr::read_csv() %>% 
   dplyr::mutate(
     DayOfWeek = lubridate::wday(Day),  # numeric, 1 = Sunday

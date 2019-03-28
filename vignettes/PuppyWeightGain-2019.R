@@ -14,7 +14,6 @@ library(ggplot2)
 
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(
-    "extdata", 
     "weights-2019", 
     "puppies-2019-weight-in-oz.csv", 
     package = "codesamplerr"
@@ -41,9 +40,9 @@ weights %>%
   scale_color_manual(values=puppy_id_to_color) +
   ggtitle("Puppy weight by day") +
   scale_y_continuous(
-    limits = c(14, 30), 
-    minor_breaks = seq(14, 30, 1),
-    breaks = seq(14, 30, by = 2)
+    limits = c(14, 32), 
+    minor_breaks = seq(14, 32, 1),
+    breaks = seq(14, 32, by = 2)
   ) + 
   theme(
     panel.grid.minor = element_line(colour="gray50", size=0.5),
@@ -62,7 +61,11 @@ library(ggplot2)
 
 ## ------------------------------------------------------------------------
 # Reads CSV and converts to tidy format.
-weights <- system.file("extdata", "weights-2019", "puppies-2019-weight-in-oz.csv", package = "codesamplerr") %>% 
+weights <- system.file(
+    "weights-2019", 
+    "puppies-2019-weight-in-oz.csv", 
+    package = "codesamplerr"
+  ) %>% 
   readr::read_csv() %>% 
   tidyr::gather(
     'pink', 'emerald', 'orange', 'purple', 'yellow', 'blue',
@@ -82,9 +85,9 @@ weights %>%
   scale_color_manual(values=puppy_id_to_color) +
   ggtitle("Puppy weight by day") +
   scale_y_continuous(
-    limits = c(14, 30), 
-    minor_breaks = seq(14, 30, 1),
-    breaks = seq(14, 30, by = 2)
+    limits = c(14, 32), 
+    minor_breaks = seq(14, 32, 1),
+    breaks = seq(14, 32, by = 2)
   ) + 
   theme(
     panel.grid.minor = element_line(colour="gray50", size=0.5),
@@ -106,7 +109,11 @@ gains %>%
 
 
 ## ------------------------------------------------------------------------
-sex <- system.file("extdata", "weights-2019", "puppies-2019-sex.csv", package = "codesamplerr") %>% 
+sex <- system.file(
+    "weights-2019", 
+    "puppies-2019-sex.csv", 
+    package = "codesamplerr"
+  ) %>% 
   readr::read_csv()
 weights %>% 
   group_by(puppy_id) %>% 

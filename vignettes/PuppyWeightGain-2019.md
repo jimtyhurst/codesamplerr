@@ -46,8 +46,8 @@ library(ggplot2)
 
 There are two CSV files contained in this package:
 
-  - `inst/extdata/weights-2019/puppies-2019-weight-in-oz.csv`
-  - `inst/extdata/weights-2019/puppies-2019-sex.csv`
+  - `inst/weights-2019/puppies-2019-weight-in-oz.csv`
+  - `inst/weights-2019/puppies-2019-sex.csv`
 
 The puppies were weighed once daily on a digital kitchen scale, which
 measures to a fraction of an ounce, but we rounded to the nearest ounce.
@@ -70,7 +70,11 @@ weight by date for each individual.
 
 ``` r
 # Reads CSV and converts to tidy format.
-weights <- system.file("extdata", "weights-2019", "puppies-2019-weight-in-oz.csv", package = "codesamplerr") %>% 
+weights <- system.file(
+    "weights-2019", 
+    "puppies-2019-weight-in-oz.csv", 
+    package = "codesamplerr"
+  ) %>% 
   readr::read_csv() %>% 
   tidyr::gather(
     'pink', 'emerald', 'orange', 'purple', 'yellow', 'blue',
@@ -100,9 +104,9 @@ weights %>%
   scale_color_manual(values=puppy_id_to_color) +
   ggtitle("Puppy weight by day") +
   scale_y_continuous(
-    limits = c(14, 30), 
-    minor_breaks = seq(14, 30, 1),
-    breaks = seq(14, 30, by = 2)
+    limits = c(14, 32), 
+    minor_breaks = seq(14, 32, 1),
+    breaks = seq(14, 32, by = 2)
   ) + 
   theme(
     panel.grid.minor = element_line(colour="gray50", size=0.5),
@@ -133,11 +137,14 @@ gains %>%
 descending order? I want the previous plot to be ordered as: blue,
 orange, pink, … 🔺
 
-Plot the mean difference between weight gain by males and
-females.
+Plot the mean difference between weight gain by males and females.
 
 ``` r
-sex <- system.file("extdata", "weights-2019", "puppies-2019-sex.csv", package = "codesamplerr") %>% 
+sex <- system.file(
+    "weights-2019", 
+    "puppies-2019-sex.csv", 
+    package = "codesamplerr"
+  ) %>% 
   readr::read_csv()
 #> Parsed with column specification:
 #> cols(

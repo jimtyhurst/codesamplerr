@@ -12,7 +12,7 @@ library(lubridate)
 library(ggplot2)
 
 ## ------------------------------------------------------------------------
-events <- system.file("extdata", "pdxRlang-meetup-days.csv", package = "codesamplerr") %>% 
+events <- system.file("pdxRlang-meetup-days.csv", package = "codesamplerr") %>% 
   readr::read_csv() %>% 
   dplyr::mutate(
     DayOfWeek = lubridate::wday(Day),  # numeric, 1 = Sunday

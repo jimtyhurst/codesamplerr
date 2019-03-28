@@ -12,7 +12,7 @@ Puppy Weight Gain
 ## tl;dr
 
     #> [1] "Puppy weight by day"
-    #> # A tibble: 8 x 7
+    #> # A tibble: 9 x 7
     #>   date        pink emerald orange purple yellow  blue
     #>   <date>     <dbl>   <dbl>  <dbl>  <dbl>  <dbl> <dbl>
     #> 1 2019-03-20    17      17     19     16     17    17
@@ -23,6 +23,7 @@ Puppy Weight Gain
     #> 6 2019-03-25    18      17     22     16     16    22
     #> 7 2019-03-26    18      18     23     18     18    22
     #> 8 2019-03-27    20      19     24     20     18    25
+    #> 9 2019-03-28    21      20     25     21     20    25
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 

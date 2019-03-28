@@ -50,9 +50,9 @@ library(ggplot2)
 
 ## The Data
 
-[pdxRlang-meetup-days.csv](https://github.com/jimtyhurst/codesamplerr/blob/master/inst/pdxRlang-meetup-days.csv)
-is a one-column CSV file that has the dates for the last 3 years of
-Events listed on the [Portland R User
+[pdxRlang-meetup-days.csv](../inst/pdxRlang-meetup-days.csv) is a
+one-column CSV file that has the dates for the last 3 years of Events
+listed on the [Portland R User
 Group](https://www.meetup.com/portland-r-user-group/) web site. I
 created the file on 2019-03-15 by browsing the [Past
 Events](https://www.meetup.com/portland-r-user-group/events/past/) web

@@ -93,27 +93,7 @@ weights <- system.file(
 #>   blue = col_double()
 #> )
 
-# Plots weight by day.
-# Need to jitter the lines vertically slightly, otherwise one 
-# line segment might cover others.
-puppy_id_to_color = c(blue = 'blue', emerald = 'green', orange = 'orange', pink = 'red', purple = 'purple', yellow = 'yellow')
-weights %>% 
-  mutate(id = factor(puppy_id)) %>% 
-  ggplot(aes(x = date, y = weight, group = puppy_id, color = puppy_id)) + 
-  geom_point(na.rm = TRUE) +
-  geom_line(aes(y = jitter(weight, amount = 0)), na.rm = TRUE) + 
-  scale_color_manual(values=puppy_id_to_color) +
-  ggtitle("Puppy weight by day") +
-  scale_y_continuous(
-    limits = c(14, 32), 
-    minor_breaks = seq(14, 32, 1),
-    breaks = seq(14, 32, by = 2)
-  ) + 
-  theme(
-    panel.grid.minor = element_line(colour="gray50", size=0.5),
-    panel.grid.major = element_line(colour="gray10", size=0.5)
-  ) +
-  labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
+plot_weights(weights, puppy_id_to_color)
 ```
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->

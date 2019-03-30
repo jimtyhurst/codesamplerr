@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-29
+2019-03-30
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -11,22 +11,23 @@ Puppy Weight Gain
 
 ## tl;dr
 
-    #> [1] "Puppy weight by day"
-    #> # A tibble: 10 x 7
-    #>    date        pink emerald orange purple yellow  blue
-    #>    <date>     <dbl>   <dbl>  <dbl>  <dbl>  <dbl> <dbl>
-    #>  1 2019-03-20    17      17     19     16     17    17
-    #>  2 2019-03-21    16      17     18     16     16    16
-    #>  3 2019-03-22    16      16     18     16     16    16
-    #>  4 2019-03-23    15      16     18     15     16    18
-    #>  5 2019-03-24    17      16     19     15     16    19
-    #>  6 2019-03-25    18      17     22     16     16    22
-    #>  7 2019-03-26    18      18     23     18     18    22
-    #>  8 2019-03-27    20      19     24     20     18    25
-    #>  9 2019-03-28    21      20     25     21     20    25
-    #> 10 2019-03-29    23      21     28     23     21    28
-
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+Same puppy weight gain data as above, but presented in table format:
+
+| date       | blue | emerald | orange | pink | purple | yellow |
+| :--------- | ---: | ------: | -----: | ---: | -----: | -----: |
+| 2019-03-20 |   17 |      17 |     19 |   17 |     16 |     17 |
+| 2019-03-21 |   16 |      17 |     18 |   16 |     16 |     16 |
+| 2019-03-22 |   16 |      16 |     18 |   16 |     16 |     16 |
+| 2019-03-23 |   18 |      16 |     18 |   15 |     15 |     16 |
+| 2019-03-24 |   19 |      16 |     19 |   17 |     15 |     16 |
+| 2019-03-25 |   22 |      17 |     22 |   18 |     16 |     16 |
+| 2019-03-26 |   22 |      18 |     23 |   18 |     18 |     18 |
+| 2019-03-27 |   25 |      19 |     24 |   20 |     20 |     18 |
+| 2019-03-28 |   25 |      20 |     25 |   21 |     21 |     20 |
+| 2019-03-29 |   28 |      21 |     28 |   23 |     23 |     21 |
+| 2019-03-30 |   29 |      22 |     30 |   23 |     24 |     22 |
 
 ## Context
 
@@ -97,7 +98,7 @@ weights <- system.file(
 plot_weights(weights, puppy_id_to_color)
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Plot the weight gain by individual:
 
@@ -113,7 +114,7 @@ gains %>% dplyr::arrange(desc(weight_gain)) %>%
   labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy")
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 🔻 *To Do*: How can I order the ids on the x-axis by the y-value in
 descending order? I want the previous plot to be ordered as: blue,
@@ -145,4 +146,4 @@ weights %>%
   labs(x = "Sex", y = "Mean Weight Gain (ounces)")
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->

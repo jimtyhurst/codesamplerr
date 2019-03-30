@@ -19,8 +19,6 @@ raw_weights <- system.file(
     package = "codesamplerr"
   ) %>% 
   readr::read_csv()
-print("Puppy weight by day")
-print(raw_weights, na.print = "NA", n = 100)
 weights <- raw_weights %>% 
   tidyr::gather(
     'pink', 'emerald', 'orange', 'purple', 'yellow', 'blue',
@@ -52,8 +50,13 @@ plot_weights <- function(weights, puppy_id_to_color) {
   ) +
   labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
 }
-plot_weights(weights, puppy_id_to_color)
+plot_weights(weights, puppy_id_to_color) %>% print()
 
+## ----echo=FALSE----------------------------------------------------------
+library(knitr)
+raw_weights %>% 
+  select(date, blue, emerald, orange, pink, purple, yellow) %>% 
+  kable(na.print = "NA")
 
 ## ------------------------------------------------------------------------
 library(codesamplerr)

@@ -85,7 +85,7 @@ gains <- weights %>%
   group_by(puppy_id) %>% 
   summarize(weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE))
 # TODO: How to order the puppy_id by weight gain descending?
-gains %>% 
+gains %>% dplyr::arrange(desc(weight_gain)) %>% 
   ggplot(aes(puppy_id, weight_gain)) + 
   geom_col(fill = puppy_id_to_color) + 
   ggtitle("Total weight gain since birth") +

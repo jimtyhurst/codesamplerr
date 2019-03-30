@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-28
+2019-03-29
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -12,18 +12,19 @@ Puppy Weight Gain
 ## tl;dr
 
     #> [1] "Puppy weight by day"
-    #> # A tibble: 9 x 7
-    #>   date        pink emerald orange purple yellow  blue
-    #>   <date>     <dbl>   <dbl>  <dbl>  <dbl>  <dbl> <dbl>
-    #> 1 2019-03-20    17      17     19     16     17    17
-    #> 2 2019-03-21    16      17     18     16     16    16
-    #> 3 2019-03-22    16      16     18     16     16    16
-    #> 4 2019-03-23    15      16     18     15     16    18
-    #> 5 2019-03-24    17      16     19     15     16    19
-    #> 6 2019-03-25    18      17     22     16     16    22
-    #> 7 2019-03-26    18      18     23     18     18    22
-    #> 8 2019-03-27    20      19     24     20     18    25
-    #> 9 2019-03-28    21      20     25     21     20    25
+    #> # A tibble: 10 x 7
+    #>    date        pink emerald orange purple yellow  blue
+    #>    <date>     <dbl>   <dbl>  <dbl>  <dbl>  <dbl> <dbl>
+    #>  1 2019-03-20    17      17     19     16     17    17
+    #>  2 2019-03-21    16      17     18     16     16    16
+    #>  3 2019-03-22    16      16     18     16     16    16
+    #>  4 2019-03-23    15      16     18     15     16    18
+    #>  5 2019-03-24    17      16     19     15     16    19
+    #>  6 2019-03-25    18      17     22     16     16    22
+    #>  7 2019-03-26    18      18     23     18     18    22
+    #>  8 2019-03-27    20      19     24     20     18    25
+    #>  9 2019-03-28    21      20     25     21     20    25
+    #> 10 2019-03-29    23      21     28     23     21    28
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
@@ -105,7 +106,7 @@ gains <- weights %>%
   group_by(puppy_id) %>% 
   summarize(weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE))
 # TODO: How to order the puppy_id by weight gain descending?
-gains %>% 
+gains %>% dplyr::arrange(desc(weight_gain)) %>% 
   ggplot(aes(puppy_id, weight_gain)) + 
   geom_col(fill = puppy_id_to_color) + 
   ggtitle("Total weight gain since birth") +

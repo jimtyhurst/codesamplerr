@@ -41,6 +41,7 @@ library(codesamplerr)
 library(readr)
 library(tidyr)
 library(dplyr)
+library(forcats)
 library(lubridate)
 library(ggplot2)
 ```
@@ -63,7 +64,7 @@ puppy moved. So in any particular reading, it is possible that we
 rounded up when a non-moving weight would have rounded down or vice
 versa. Even in the early stages, where the puppies only weighed 16
 ounces, a 1 ounce error is only 6%. As the puppies gained weight, the
-error was much smaller.
+error as a percentage of body weight was much smaller.
 
 ## Exploring the Data
 
@@ -100,25 +101,38 @@ plot_weights(weights, puppy_id_to_color)
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-Plot the weight gain by individual:
+Plot the weight gain by
+individual:
 
 ``` r
-gains <- weights %>% 
-  group_by(puppy_id) %>% 
-  summarize(weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE))
-# TODO: How to order the puppy_id by weight gain descending?
-gains %>% dplyr::arrange(desc(weight_gain)) %>% 
-  ggplot(aes(puppy_id, weight_gain)) + 
-  geom_col(fill = puppy_id_to_color) + 
-  ggtitle("Total weight gain since birth") +
-  labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy")
+# Uses fct_reorder to sort the puppy_id factor by weight gain (descending).
+#   Otherwise, the puppy_id will display in alphabetical order.
+weights %>% 
+  dplyr::group_by(puppy_id) %>% 
+  dplyr::summarize(
+    weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
+  ) %>%
+  dplyr::mutate(
+    sorted_puppy_id = forcats::fct_reorder(puppy_id, weight_gain, .desc = TRUE)
+  ) %>% 
+  ggplot(aes(sorted_puppy_id, weight_gain)) + 
+    geom_col(fill = puppy_id_to_color) + 
+    ggtitle("Total weight gain since birth") +
+    labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy") +
+    scale_y_continuous(
+      expand = c(0, 0),
+      limits = c(0, 16), 
+      minor_breaks = seq(0, 16, 1),
+      breaks = seq(0, 16, by = 2)
+    ) +
+    theme(
+      panel.grid.minor = element_line(colour="grey60", size=0.5),
+      panel.grid.major = element_line(colour="grey40", size=0.5),
+      panel.background = element_rect(fill="snow2")
+    )
 ```
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
-
-🔻 *To Do*: How can I order the ids on the x-axis by the y-value in
-descending order? I want the previous plot to be ordered as: blue,
-orange, pink, … 🔺
 
 Plot the mean difference between weight gain by males and females.
 
@@ -135,15 +149,28 @@ sex <- system.file(
 #>   sex = col_character()
 #> )
 weights %>% 
-  group_by(puppy_id) %>% 
-  summarize(weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)) %>% 
+  dplyr::group_by(puppy_id) %>% 
+  dplyr::summarize(
+    weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
+  ) %>% 
   dplyr::inner_join(sex, by = c("puppy_id" = "label")) %>% 
-  group_by(sex) %>% 
-  summarize(mean_gain = mean(weight_gain, na.rm = TRUE)) %>% 
+  dplyr::group_by(sex) %>% 
+  dplyr::summarize(mean_gain = mean(weight_gain, na.rm = TRUE)) %>% 
   ggplot(aes(sex, mean_gain)) + 
-  geom_col(fill = c("red", "blue")) + 
-  ggtitle("Mean weight gain by sex") +
-  labs(x = "Sex", y = "Mean Weight Gain (ounces)")
+    geom_col(fill = c("red", "blue")) + 
+    ggtitle("Mean weight gain since birth by sex") +
+    labs(x = "Sex", y = "Mean Weight Gain (ounces)") + 
+    scale_y_continuous(
+      expand = c(0, 0),
+      limits = c(0, 16), 
+      minor_breaks = seq(1, 15, 2),
+      breaks = seq(0, 16, by = 2)
+    ) +
+    theme(
+      panel.grid.minor = element_line(colour="grey60", size=0.5),
+      panel.grid.major = element_line(colour="grey40", size=0.5),
+      panel.background = element_rect(fill="snow2")
+    )
 ```
 
 ![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->

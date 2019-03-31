@@ -63,6 +63,7 @@ library(codesamplerr)
 library(readr)
 library(tidyr)
 library(dplyr)
+library(forcats)
 library(lubridate)
 library(ggplot2)
 
@@ -84,15 +85,31 @@ plot_weights(weights, puppy_id_to_color)
 
 
 ## ------------------------------------------------------------------------
-gains <- weights %>% 
-  group_by(puppy_id) %>% 
-  summarize(weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE))
-# TODO: How to order the puppy_id by weight gain descending?
-gains %>% dplyr::arrange(desc(weight_gain)) %>% 
-  ggplot(aes(puppy_id, weight_gain)) + 
-  geom_col(fill = puppy_id_to_color) + 
-  ggtitle("Total weight gain since birth") +
-  labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy")
+# Uses fct_reorder to sort the puppy_id factor by weight gain (descending).
+#   Otherwise, the puppy_id will display in alphabetical order.
+weights %>% 
+  dplyr::group_by(puppy_id) %>% 
+  dplyr::summarize(
+    weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
+  ) %>%
+  dplyr::mutate(
+    sorted_puppy_id = forcats::fct_reorder(puppy_id, weight_gain, .desc = TRUE)
+  ) %>% 
+  ggplot(aes(sorted_puppy_id, weight_gain)) + 
+    geom_col(fill = puppy_id_to_color) + 
+    ggtitle("Total weight gain since birth") +
+    labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy") +
+    scale_y_continuous(
+      expand = c(0, 0),
+      limits = c(0, 16), 
+      minor_breaks = seq(0, 16, 1),
+      breaks = seq(0, 16, by = 2)
+    ) +
+    theme(
+      panel.grid.minor = element_line(colour="grey60", size=0.5),
+      panel.grid.major = element_line(colour="grey40", size=0.5),
+      panel.background = element_rect(fill="snow2")
+    )
 
 
 ## ------------------------------------------------------------------------
@@ -103,14 +120,27 @@ sex <- system.file(
   ) %>% 
   readr::read_csv()
 weights %>% 
-  group_by(puppy_id) %>% 
-  summarize(weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)) %>% 
+  dplyr::group_by(puppy_id) %>% 
+  dplyr::summarize(
+    weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
+  ) %>% 
   dplyr::inner_join(sex, by = c("puppy_id" = "label")) %>% 
-  group_by(sex) %>% 
-  summarize(mean_gain = mean(weight_gain, na.rm = TRUE)) %>% 
+  dplyr::group_by(sex) %>% 
+  dplyr::summarize(mean_gain = mean(weight_gain, na.rm = TRUE)) %>% 
   ggplot(aes(sex, mean_gain)) + 
-  geom_col(fill = c("red", "blue")) + 
-  ggtitle("Mean weight gain by sex") +
-  labs(x = "Sex", y = "Mean Weight Gain (ounces)")
+    geom_col(fill = c("red", "blue")) + 
+    ggtitle("Mean weight gain since birth by sex") +
+    labs(x = "Sex", y = "Mean Weight Gain (ounces)") + 
+    scale_y_continuous(
+      expand = c(0, 0),
+      limits = c(0, 16), 
+      minor_breaks = seq(1, 15, 2),
+      breaks = seq(0, 16, by = 2)
+    ) +
+    theme(
+      panel.grid.minor = element_line(colour="grey60", size=0.5),
+      panel.grid.major = element_line(colour="grey40", size=0.5),
+      panel.background = element_rect(fill="snow2")
+    )
 
 

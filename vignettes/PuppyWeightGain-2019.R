@@ -12,6 +12,11 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 
+weight_lower_bound_oz <- 14
+weight_upper_bound_oz <- 36
+weight_gain_lower_bound_oz <- 0
+weight_gain_upper_bound_oz <- 16
+
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(
     "weights-2019", 
@@ -27,9 +32,9 @@ weights <- raw_weights %>%
   )
 
 # Plots weight by day.
-# Need to jitter the lines vertically slightly, otherwise one 
-#   line segment might cover others.
-puppy_id_to_color = c(blue = 'blue', emerald = 'green', orange = 'orange', pink = 'red', purple = 'purple', yellow = 'yellow')
+# Need to jitter the lines vertically slightly.
+# Otherwise one line segment might cover others.
+puppy_id_to_color <- c(blue = 'blue', emerald = 'green', orange = 'orange', pink = 'red', purple = 'purple', yellow = 'yellow')
 plot_weights <- function(weights, puppy_id_to_color) {
   weights %>% 
   mutate(id = factor(puppy_id)) %>% 
@@ -39,9 +44,17 @@ plot_weights <- function(weights, puppy_id_to_color) {
   scale_color_manual(values=puppy_id_to_color) +
   ggtitle("Puppy weight by day") +
   scale_y_continuous(
-    limits = c(14, 32), 
-    minor_breaks = seq(14, 32, 1),
-    breaks = seq(14, 32, by = 2)
+    limits = c(weight_lower_bound_oz, weight_upper_bound_oz), 
+    minor_breaks = seq(
+      weight_lower_bound_oz, 
+      weight_upper_bound_oz, 
+      by = 1
+    ),
+    breaks = seq(
+      weight_lower_bound_oz, 
+      weight_upper_bound_oz, 
+      by = 2
+    )
   ) + 
   theme(
     panel.grid.minor = element_line(colour="grey60", size=0.5),
@@ -87,23 +100,39 @@ plot_weights(weights, puppy_id_to_color)
 ## ------------------------------------------------------------------------
 # Uses fct_reorder to sort the puppy_id factor by weight gain (descending).
 #   Otherwise, the puppy_id will display in alphabetical order.
-weights %>% 
+sorted_weights <- weights %>% 
   dplyr::group_by(puppy_id) %>% 
   dplyr::summarize(
     weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
   ) %>%
   dplyr::mutate(
     sorted_puppy_id = forcats::fct_reorder(puppy_id, weight_gain, .desc = TRUE)
-  ) %>% 
+  )
+# Rebuild the color map, because the order of ids has changed.
+sorted_puppy_id_to_color <- purrr::map(
+  levels(sorted_weights$sorted_puppy_id),
+  function (x) {
+    puppy_id_to_color[[x]]
+  }
+)
+sorted_weights %>% 
   ggplot(aes(sorted_puppy_id, weight_gain)) + 
-    geom_col(fill = puppy_id_to_color) + 
+    geom_col(fill = sorted_puppy_id_to_color) + 
     ggtitle("Total weight gain since birth") +
     labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy") +
     scale_y_continuous(
       expand = c(0, 0),
-      limits = c(0, 16), 
-      minor_breaks = seq(0, 16, 1),
-      breaks = seq(0, 16, by = 2)
+      limits = c(weight_gain_lower_bound_oz, weight_gain_upper_bound_oz), 
+      minor_breaks = seq(
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 1
+      ),
+      breaks = seq(
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 2
+      )
     ) +
     theme(
       panel.grid.minor = element_line(colour="grey60", size=0.5),
@@ -132,10 +161,16 @@ weights %>%
     ggtitle("Mean weight gain since birth by sex") +
     labs(x = "Sex", y = "Mean Weight Gain (ounces)") + 
     scale_y_continuous(
-      expand = c(0, 0),
-      limits = c(0, 16), 
-      minor_breaks = seq(1, 15, 2),
-      breaks = seq(0, 16, by = 2)
+      expand = c(weight_gain_lower_bound_oz, weight_gain_lower_bound_oz),
+      limits = c(weight_gain_lower_bound_oz, weight_gain_upper_bound_oz), 
+      minor_breaks = seq(
+        weight_gain_lower_bound_oz + 1, 
+        weight_gain_upper_bound_oz - 1, 
+        by = 2),
+      breaks = seq(
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 2)
     ) +
     theme(
       panel.grid.minor = element_line(colour="grey60", size=0.5),

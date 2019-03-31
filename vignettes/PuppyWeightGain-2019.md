@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-30
+2019-03-31
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -28,6 +28,7 @@ Same puppy weight gain data as above, but presented in table format:
 | 2019-03-28 |   25 |      20 |     25 |   21 |     21 |     20 |
 | 2019-03-29 |   28 |      21 |     28 |   23 |     23 |     21 |
 | 2019-03-30 |   29 |      22 |     30 |   23 |     24 |     22 |
+| 2019-03-31 |   30 |      23 |     33 |   25 |     27 |     24 |
 
 ## Context
 
@@ -107,23 +108,39 @@ individual:
 ``` r
 # Uses fct_reorder to sort the puppy_id factor by weight gain (descending).
 #   Otherwise, the puppy_id will display in alphabetical order.
-weights %>% 
+sorted_weights <- weights %>% 
   dplyr::group_by(puppy_id) %>% 
   dplyr::summarize(
     weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
   ) %>%
   dplyr::mutate(
     sorted_puppy_id = forcats::fct_reorder(puppy_id, weight_gain, .desc = TRUE)
-  ) %>% 
+  )
+# Rebuild the color map, because the order of ids has changed.
+sorted_puppy_id_to_color <- purrr::map(
+  levels(sorted_weights$sorted_puppy_id),
+  function (x) {
+    puppy_id_to_color[[x]]
+  }
+)
+sorted_weights %>% 
   ggplot(aes(sorted_puppy_id, weight_gain)) + 
-    geom_col(fill = puppy_id_to_color) + 
+    geom_col(fill = sorted_puppy_id_to_color) + 
     ggtitle("Total weight gain since birth") +
     labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy") +
     scale_y_continuous(
       expand = c(0, 0),
-      limits = c(0, 16), 
-      minor_breaks = seq(0, 16, 1),
-      breaks = seq(0, 16, by = 2)
+      limits = c(weight_gain_lower_bound_oz, weight_gain_upper_bound_oz), 
+      minor_breaks = seq(
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 1
+      ),
+      breaks = seq(
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 2
+      )
     ) +
     theme(
       panel.grid.minor = element_line(colour="grey60", size=0.5),
@@ -161,10 +178,16 @@ weights %>%
     ggtitle("Mean weight gain since birth by sex") +
     labs(x = "Sex", y = "Mean Weight Gain (ounces)") + 
     scale_y_continuous(
-      expand = c(0, 0),
-      limits = c(0, 16), 
-      minor_breaks = seq(1, 15, 2),
-      breaks = seq(0, 16, by = 2)
+      expand = c(weight_gain_lower_bound_oz, weight_gain_lower_bound_oz),
+      limits = c(weight_gain_lower_bound_oz, weight_gain_upper_bound_oz), 
+      minor_breaks = seq(
+        weight_gain_lower_bound_oz + 1, 
+        weight_gain_upper_bound_oz - 1, 
+        by = 2),
+      breaks = seq(
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 2)
     ) +
     theme(
       panel.grid.minor = element_line(colour="grey60", size=0.5),

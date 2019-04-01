@@ -93,22 +93,29 @@ weights <- system.file(
     key = 'puppy_id',
     value = 'weight'
   )
-
 plot_weights(weights, puppy_id_to_color)
 
 
 ## ------------------------------------------------------------------------
+# Calculates birth weights = first measured weights.
+start_date <- min(weights$date)
+birth_weights <- weights %>% 
+  dplyr::filter(date == start_date) %>% 
+  dplyr::select(puppy_id, birth_weight = weight)
+
 # Uses fct_reorder to sort the puppy_id factor by weight gain (descending).
 #   Otherwise, the puppy_id will display in alphabetical order.
 sorted_weights <- weights %>% 
+  dplyr::inner_join(birth_weights, by = "puppy_id") %>% 
   dplyr::group_by(puppy_id) %>% 
   dplyr::summarize(
-    weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
+    weight_gain = max(weight, na.rm = TRUE) - min(birth_weight, na.rm = TRUE)
   ) %>%
   dplyr::mutate(
     sorted_puppy_id = forcats::fct_reorder(puppy_id, weight_gain, .desc = TRUE)
   )
-# Rebuild the color map, because the order of ids has changed.
+# Rebuild the color map, because the order of ids was changed
+#   by the 'fct_reorder' call above.
 sorted_puppy_id_to_color <- purrr::map(
   levels(sorted_weights$sorted_puppy_id),
   function (x) {
@@ -118,7 +125,7 @@ sorted_puppy_id_to_color <- purrr::map(
 sorted_weights %>% 
   ggplot(aes(sorted_puppy_id, weight_gain)) + 
     geom_col(fill = sorted_puppy_id_to_color) + 
-    ggtitle("Total weight gain since birth") +
+    ggtitle("Weight gain since birth (= maximum weight - birth weight)") +
     labs(x = "Puppy", y = "Weight Gain (ounces)", color = "Puppy") +
     scale_y_continuous(
       expand = c(0, 0),
@@ -149,10 +156,11 @@ sex <- system.file(
   ) %>% 
   readr::read_csv()
 weights %>% 
+  dplyr::inner_join(birth_weights, by = "puppy_id") %>% 
   dplyr::group_by(puppy_id) %>% 
   dplyr::summarize(
-    weight_gain = max(weight, na.rm = TRUE) - min(weight, na.rm = TRUE)
-  ) %>% 
+    weight_gain = max(weight, na.rm = TRUE) - min(birth_weight, na.rm = TRUE)
+  ) %>%
   dplyr::inner_join(sex, by = c("puppy_id" = "label")) %>% 
   dplyr::group_by(sex) %>% 
   dplyr::summarize(mean_gain = mean(weight_gain, na.rm = TRUE)) %>% 

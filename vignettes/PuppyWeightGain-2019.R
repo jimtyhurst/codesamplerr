@@ -65,6 +65,7 @@ plot_weights <- function(weights, puppy_id_to_color) {
 }
 plot_weights(weights, puppy_id_to_color) %>% print()
 
+
 ## ----echo=FALSE----------------------------------------------------------
 library(knitr)
 raw_weights %>% 

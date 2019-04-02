@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-04-01
+2019-04-02
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -30,6 +30,7 @@ Same puppy weight gain data as above, but presented in table format:
 | 2019-03-30 |   29 |      22 |     30 |   23 |     24 |     22 |
 | 2019-03-31 |   30 |      23 |     33 |   25 |     27 |     24 |
 | 2019-04-01 |   31 |      24 |     34 |   27 |     29 |     26 |
+| 2019-04-02 |   34 |      25 |     36 |   29 |     29 |     28 |
 
 ## Context
 
@@ -50,10 +51,11 @@ library(ggplot2)
 
 ## The Data
 
-There are two CSV files contained in this package:
+There are two CSV files contained in this
+    package:
 
-  - `inst/weights-2019/puppies-2019-weight-in-oz.csv`
-  - `inst/weights-2019/puppies-2019-sex.csv`
+  - [puppies-2019-weight-in-oz.csv](../inst/weights-2019/puppies-2019-weight-in-oz.csv)
+  - [puppies-2019-sex.csv](../inst/weights-2019/puppies-2019-sex.csv)
 
 The puppies were weighed once daily on a digital kitchen scale, which
 measures to a fraction of an ounce, but we rounded to the nearest ounce.

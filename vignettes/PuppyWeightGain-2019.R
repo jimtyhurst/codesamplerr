@@ -13,9 +13,9 @@ library(lubridate)
 library(ggplot2)
 
 weight_lower_bound_oz <- 14
-weight_upper_bound_oz <- 36
+weight_upper_bound_oz <- 42
 weight_gain_lower_bound_oz <- 0
-weight_gain_upper_bound_oz <- 16
+weight_gain_upper_bound_oz <- 24
 
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(
@@ -64,7 +64,7 @@ plot_weights <- function(weights, puppy_id_to_color) {
   labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
 }
 plot_weights(weights, puppy_id_to_color) %>% print()
-
+ 
 
 ## ----echo=FALSE----------------------------------------------------------
 library(knitr)

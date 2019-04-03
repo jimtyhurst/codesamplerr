@@ -9,9 +9,11 @@ Puppy Weight Gain
   - [The Data](#the-data)
   - [Exploring the Data](#exploring-the-data)
 
+[Source code](./PuppyWeightGain-2019.Rmd).
+
 ## tl;dr
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/reads_and_plots-1.png)<!-- -->
 
 Same puppy weight gain data as above, but presented in table format:
 
@@ -102,7 +104,7 @@ weights <- system.file(
 plot_weights(weights, puppy_id_to_color)
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/plots_weights-1.png)<!-- -->
 
 Next, we plot the weight gain by individual from birth weight to maximum
 weight. In all cases, a puppy lost some weight from birth weight, which
@@ -170,7 +172,7 @@ sorted_weights %>%
     )
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/weight_gains-1.png)<!-- -->
 
 Plot the mean weight gain by males and females:
 
@@ -218,4 +220,4 @@ weights %>%
     )
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/mean_weight_gain_by_sex-1.png)<!-- -->

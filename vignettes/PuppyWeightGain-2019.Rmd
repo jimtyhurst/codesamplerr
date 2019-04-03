@@ -5,11 +5,15 @@ date: "`r Sys.Date()`"
 output:
   github_document:
     toc: true
+    hard_line_breaks: FALSE
+  html_document:
+    toc: true
+    code_folding: hide
 numbersections: true
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include = FALSE}
@@ -19,9 +23,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+[Source code](./PuppyWeightGain-2019.Rmd).
+
 ## tl;dr
 
-```{r echo=FALSE, message=FALSE}
+```{r reads_and_plots, echo = FALSE, message = FALSE}
 library(codesamplerr)
 library(readr)
 library(tidyr)
@@ -85,7 +91,7 @@ plot_weights(weights, puppy_id_to_color) %>% print()
 ```
 
 Same puppy weight gain data as above, but presented in table format:
-```{r echo=FALSE}
+```{r print_data, echo = FALSE}
 library(knitr)
 raw_weights %>% 
   select(date, blue, emerald, orange, pink, purple, yellow) %>% 
@@ -97,7 +103,7 @@ raw_weights %>%
 This is a simple analysis and plot of the weight gain of a group of German Shepherd puppies born on 2019-03-19.
 
 ## Configuration
-```{r}
+```{r dependencies}
 library(codesamplerr)
 library(readr)
 library(tidyr)
@@ -122,7 +128,7 @@ The scale display varies continuously as a puppy squirms on the scale platform, 
 
 Read the data, convert to [tidy](https://www.jstatsoft.org/article/view/v059i10/) format, and plot weight by date for each individual.
 
-```{r}
+```{r plots_weights}
 # Reads CSV and converts to tidy format.
 weights <- system.file(
     "weights-2019", 
@@ -148,7 +154,7 @@ For this plot, we calculate:
     maximum weight - first measured weight   # <== Plot this!
 ```
 
-```{r}
+```{r weight_gains}
 # Calculates birth weights = first measured weights.
 start_date <- min(weights$date)
 birth_weights <- weights %>% 
@@ -203,7 +209,7 @@ sorted_weights %>%
 
 Plot the mean weight gain by males and females:
 
-```{r}
+```{r mean_weight_gain_by_sex}
 sex <- system.file(
     "weights-2019", 
     "puppies-2019-sex.csv", 

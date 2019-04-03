@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----echo=FALSE, message=FALSE-------------------------------------------
+## ----reads_and_plots, echo = FALSE, message = FALSE----------------------
 library(codesamplerr)
 library(readr)
 library(tidyr)
@@ -66,13 +66,13 @@ plot_weights <- function(weights, puppy_id_to_color) {
 plot_weights(weights, puppy_id_to_color) %>% print()
  
 
-## ----echo=FALSE----------------------------------------------------------
+## ----print_data, echo = FALSE--------------------------------------------
 library(knitr)
 raw_weights %>% 
   select(date, blue, emerald, orange, pink, purple, yellow) %>% 
   kable(na.print = "NA")
 
-## ------------------------------------------------------------------------
+## ----dependencies--------------------------------------------------------
 library(codesamplerr)
 library(readr)
 library(tidyr)
@@ -81,7 +81,7 @@ library(forcats)
 library(lubridate)
 library(ggplot2)
 
-## ------------------------------------------------------------------------
+## ----plots_weights-------------------------------------------------------
 # Reads CSV and converts to tidy format.
 weights <- system.file(
     "weights-2019", 
@@ -97,7 +97,7 @@ weights <- system.file(
 plot_weights(weights, puppy_id_to_color)
 
 
-## ------------------------------------------------------------------------
+## ----weight_gains--------------------------------------------------------
 # Calculates birth weights = first measured weights.
 start_date <- min(weights$date)
 birth_weights <- weights %>% 
@@ -149,7 +149,7 @@ sorted_weights %>%
     )
 
 
-## ------------------------------------------------------------------------
+## ----mean_weight_gain_by_sex---------------------------------------------
 sex <- system.file(
     "weights-2019", 
     "puppies-2019-sex.csv", 

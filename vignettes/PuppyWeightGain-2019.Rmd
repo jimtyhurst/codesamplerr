@@ -111,6 +111,7 @@ library(dplyr)
 library(forcats)
 library(lubridate)
 library(ggplot2)
+
 ```
 
 ## The Data

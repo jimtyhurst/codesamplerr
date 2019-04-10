@@ -38,7 +38,7 @@ library(ggplot2)
 weight_lower_bound_oz <- 14
 weight_upper_bound_oz <- 54
 weight_gain_lower_bound_oz <- 0
-weight_gain_upper_bound_oz <- 40
+weight_gain_upper_bound_oz <- 42
 
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(

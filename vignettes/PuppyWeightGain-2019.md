@@ -173,12 +173,12 @@ sorted_weights %>%
       minor_breaks = seq(
         weight_gain_lower_bound_oz, 
         weight_gain_upper_bound_oz, 
-        by = 1
+        by = 5
       ),
       breaks = seq(
         weight_gain_lower_bound_oz, 
         weight_gain_upper_bound_oz, 
-        by = 2
+        by = 10
       )
     ) +
     theme(
@@ -221,13 +221,13 @@ weights %>%
       expand = c(weight_gain_lower_bound_oz, weight_gain_lower_bound_oz),
       limits = c(weight_gain_lower_bound_oz, weight_gain_upper_bound_oz), 
       minor_breaks = seq(
-        weight_gain_lower_bound_oz + 1, 
-        weight_gain_upper_bound_oz - 1, 
-        by = 2),
+        weight_gain_lower_bound_oz, 
+        weight_gain_upper_bound_oz, 
+        by = 10),
       breaks = seq(
         weight_gain_lower_bound_oz, 
         weight_gain_upper_bound_oz, 
-        by = 2)
+        by = 10)
     ) +
     theme(
       panel.grid.minor = element_line(colour="grey60", size=0.5),

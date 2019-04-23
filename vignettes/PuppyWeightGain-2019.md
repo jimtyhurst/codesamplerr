@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-04-20
+2019-04-23
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -49,6 +49,8 @@ Same puppy weight gain data as above, but presented in table format:
 | 2019-04-16 |   68 |      50 |     71 |   52 |     61 |     61 |
 | 2019-04-17 |   70 |      53 |     75 |   54 |     62 |     67 |
 | 2019-04-19 |   83 |      61 |     89 |   62 |     75 |     78 |
+| 2019-04-21 |   89 |      66 |     96 |   64 |     78 |     81 |
+| 2019-04-22 |   97 |      71 |    107 |   72 |     87 |     87 |
 
 ## Context
 

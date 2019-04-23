@@ -36,9 +36,9 @@ library(lubridate)
 library(ggplot2)
 
 weight_lower_bound_oz <- 15
-weight_upper_bound_oz <- 96
+weight_upper_bound_oz <- 112
 weight_gain_lower_bound_oz <- 0
-weight_gain_upper_bound_oz <- 80
+weight_gain_upper_bound_oz <- 96
 
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(
@@ -80,8 +80,8 @@ plot_weights <- function(weights, puppy_id_to_color) {
     )
   ) + 
   theme(
-    panel.grid.minor = element_line(colour="grey60", size=0.5),
-    panel.grid.major = element_line(colour="grey40", size=0.5),
+    panel.grid.minor = element_line(color="grey60", size=0.5),
+    panel.grid.major = element_line(color="grey40", size=0.5),
     panel.background = element_rect(fill="snow2")
   ) +
   labs(x = "Date", y = "Weight (ounces)", color = "Puppy")

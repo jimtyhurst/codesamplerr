@@ -87,7 +87,7 @@ plot_weights <- function(weights, puppy_id_to_color) {
   labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
 }
 plot_weights(weights, puppy_id_to_color) %>% print()
- 
+
 ```
 
 Same puppy weight gain data as above, but presented in table format:

@@ -36,9 +36,9 @@ library(lubridate)
 library(ggplot2)
 
 weight_lower_bound_oz <- 15
-weight_upper_bound_oz <- 112
+weight_upper_bound_oz <- 120
 weight_gain_lower_bound_oz <- 0
-weight_gain_upper_bound_oz <- 96
+weight_gain_upper_bound_oz <- 108
 
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(

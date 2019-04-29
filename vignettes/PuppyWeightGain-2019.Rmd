@@ -1,6 +1,6 @@
 ---
 title: "Puppy Weight Gain"
-author: "[Jim Tyhurst](https://www.jimtyhurst.com/)"
+author: "[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)"
 date: "`r Sys.Date()`"
 output:
   github_document:
@@ -129,6 +129,8 @@ The scale display varies continuously as a puppy squirms on the scale platform, 
 
 ## Exploring the Data
 
+### Puppy weight by day
+
 Read the data, convert to [tidy](https://www.jstatsoft.org/article/view/v059i10/) format, and plot weight by date for each individual.
 
 ```{r plots_weights}
@@ -147,6 +149,8 @@ weights <- system.file(
 plot_weights(weights, puppy_id_to_color)
 
 ```
+
+### Weight gain since birth
 
 Next, we plot the weight gain by individual from birth weight to maximum weight. In all cases, a puppy lost some weight from birth weight, which is completely normal. But we do _not_ calculate:
 ```r
@@ -207,8 +211,9 @@ sorted_weights %>%
       panel.grid.major = element_line(colour="grey40", size=0.5),
       panel.background = element_rect(fill="snow2")
     )
-
 ```
+
+### Mean weight gain since birth by sex
 
 Plot the mean weight gain by males and females:
 

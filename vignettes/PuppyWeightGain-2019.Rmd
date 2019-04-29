@@ -35,10 +35,10 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 
-weight_lower_bound_oz <- 15
-weight_upper_bound_oz <- 120
+weight_lower_bound_oz <- 0
+weight_upper_bound_oz <- 152
 weight_gain_lower_bound_oz <- 0
-weight_gain_upper_bound_oz <- 108
+weight_gain_upper_bound_oz <- 136
 
 # Reads CSV and converts to tidy format.
 raw_weights <- system.file(
@@ -89,6 +89,8 @@ plot_weights <- function(weights, puppy_id_to_color) {
 plot_weights(weights, puppy_id_to_color) %>% print()
 
 ```
+
+**Note**: I think there is an error in the weights for 2019-04-26, but I did not catch it until after reviewing the weights for 2019-04-27. It is extremely unlikely that all puppies lost weight on 2019-04-27. There was probably an error in zeroing the scale on 2019-04-26 that caused all of the readings to be a few ounces too high. Therefore, values for 4/26 should probably be replaced with a value that is midway between the measurements of 4/25 and 4/27, although I have not done that in this analysis.
 
 Same puppy weight gain data as above, but presented in table format:
 ```{r print_data, echo = FALSE}

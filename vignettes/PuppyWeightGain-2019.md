@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-04-24
+2019-04-28
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -14,6 +14,15 @@ Puppy Weight Gain
 ## tl;dr
 
 ![](PuppyWeightGain-2019_files/figure-gfm/reads_and_plots-1.png)<!-- -->
+
+**Note**: I think there is an error in the weights for 2019-04-26, but I
+did not catch it until after reviewing the weights for 2019-04-27. It is
+extremely unlikely that all puppies lost weight on 2019-04-27. There was
+probably an error in zeroing the scale on 2019-04-26 that caused all of
+the readings to be a few ounces too high. Therefore, values for 4/26
+should probably be replaced with a value that is midway between the
+measurements of 4/25 and 4/27, although I have not done that in this
+analysis.
 
 Same puppy weight gain data as above, but presented in table format:
 
@@ -53,6 +62,10 @@ Same puppy weight gain data as above, but presented in table format:
 | 2019-04-22 |   97 |      71 |    107 |   72 |     87 |     87 |
 | 2019-04-23 |  101 |      74 |    110 |   75 |     90 |     93 |
 | 2019-04-24 |  107 |      77 |    116 |   79 |     96 |     97 |
+| 2019-04-25 |  119 |      85 |    124 |   87 |    103 |    105 |
+| 2019-04-26 |  126 |      92 |    134 |   95 |    112 |    107 |
+| 2019-04-27 |  121 |      90 |    128 |   92 |    108 |    109 |
+| 2019-04-28 |  138 |     103 |    145 |  103 |    120 |    118 |
 
 ## Context
 

@@ -1,13 +1,17 @@
 Puppy Weight Gain
 ================
-[Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-04-24
+[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)
+2019-04-28
 
   - [tl;dr](#tldr)
   - [Context](#context)
   - [Configuration](#configuration)
   - [The Data](#the-data)
   - [Exploring the Data](#exploring-the-data)
+      - [Puppy weight by day](#puppy-weight-by-day)
+      - [Weight gain since birth](#weight-gain-since-birth)
+      - [Mean weight gain since birth by
+        sex](#mean-weight-gain-since-birth-by-sex)
 
 [Source code](./PuppyWeightGain-2019.Rmd).
 
@@ -94,6 +98,8 @@ error as a percentage of body weight was much smaller.
 
 ## Exploring the Data
 
+### Puppy weight by day
+
 Read the data, convert to
 [tidy](https://www.jstatsoft.org/article/view/v059i10/) format, and plot
 weight by date for each individual.
@@ -125,6 +131,8 @@ plot_weights(weights, puppy_id_to_color)
 ```
 
 ![](PuppyWeightGain-2019_files/figure-gfm/plots_weights-1.png)<!-- -->
+
+### Weight gain since birth
 
 Next, we plot the weight gain by individual from birth weight to maximum
 weight. In all cases, a puppy lost some weight from birth weight, which
@@ -193,6 +201,8 @@ sorted_weights %>%
 ```
 
 ![](PuppyWeightGain-2019_files/figure-gfm/weight_gains-1.png)<!-- -->
+
+### Mean weight gain since birth by sex
 
 Plot the mean weight gain by males and females:
 

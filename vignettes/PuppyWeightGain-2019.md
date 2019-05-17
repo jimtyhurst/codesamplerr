@@ -1,12 +1,13 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)
-2019-05-03
+2019-05-17
 
   - [tl;dr](#tldr)
   - [Context](#context)
   - [Configuration](#configuration)
   - [The Data](#the-data)
+      - [Measurement error](#measurement-error)
   - [Exploring the Data](#exploring-the-data)
       - [Puppy weight by day](#puppy-weight-by-day)
       - [Weight gain since birth](#weight-gain-since-birth)
@@ -73,6 +74,10 @@ Same puppy weight gain data as above, but presented in table format:
 | 2019-04-30 |  131 |     113 |    160 |  112 |    131 |    131 |
 | 2019-05-01 |  157 |     126 |    176 |  120 |    141 |    139 |
 | 2019-05-02 |  176 |     144 |    184 |  134 |    152 |    152 |
+| 2019-05-05 |  176 |     144 |    192 |  147 |    157 |    163 |
+| 2019-05-07 |  182 |     147 |    202 |  144 |    157 |    173 |
+| 2019-05-08 |  176 |     144 |    179 |  144 |    154 |    154 |
+| 2019-05-13 |  230 |     205 |     NA |   NA |    224 |    205 |
 
 ## Context
 
@@ -93,24 +98,46 @@ library(ggplot2)
 
 ## The Data
 
-There are two CSV files contained in this
-    package:
+There are two CSV files contained in this package:
 
   - [puppies-2019-weight-in-oz.csv](../inst/weights-2019/puppies-2019-weight-in-oz.csv)
   - [puppies-2019-sex.csv](../inst/weights-2019/puppies-2019-sex.csv)
 
-The puppies were weighed once daily on a digital kitchen scale, which
-measures to a fraction of an ounce, but we rounded to the nearest ounce.
+The puppies were weighed once daily on a digital kitchen scale until
+2019-05-01. That scale measures to a fraction of an ounce, but we
+rounded to the nearest ounce.
 
-The scale display varies continuously as a puppy squirms on the scale
-platform, so there is a little bit of interpretation involved to read
-the weight. However, we do not think that any one reading has more than
-one ounce of error, because the display only varied by 0.5 ounce while a
-puppy moved. So in any particular reading, it is possible that we
-rounded up when a non-moving weight would have rounded down or vice
+Starting 2019-05-02, we used a bathroom scale that measures in tenths of
+a pound, i.e. one digit past the decimal point. We recorded those
+weights exactly as shown on the scale.
+
+### Measurement error
+
+The kitchen scale display varies continuously as a puppy squirms on the
+scale platform, so there is a little bit of interpretation involved to
+read the weight. However, we do not think that any one reading has more
+than one ounce of error, because the display only varied by 0.5 ounce
+while a puppy moved. So in any particular reading, it is possible that
+we rounded up when a non-moving weight would have rounded down or vice
 versa. Even in the early stages, where the puppies only weighed 16
-ounces, a 1 ounce error is only 6%. As the puppies gained weight, the
-error as a percentage of body weight was much smaller.
+ounces, a 1 ounce error is only 6%. As the puppies gained weight to more
+than 7 pounds by 2019-05-01, the error as a percentage of body weight
+was much smaller.
+
+Starting 2019-05-02, the largest puppies weighed more than 10 pounds,
+which is the maximum capacity of the kitchen scale. Therefore, we
+started weighing all puppies on a bathroom scale, where the person doing
+the weighing weighed themself first, let the scale reset to zero, then
+weighed again holding a puppy. The recorded weight was the total
+measured weight of person plus puppy minus the measured weight of the
+person. The person only weighed themself once, then weighed all the
+puppies in a sequence. Unfortunately, the bathroom scale is not very
+accurate. Although it measures to a tenth of a pound, the reading varies
+by as much as pound when the same person measures themself several times
+in a row. Therefore, we have little confidence in the accuracy of
+individual weight measurements recorded starting 2019-05-02, but it was
+the only scale we had available, so we include those measurements here
+anyway.
 
 ## Exploring the Data
 

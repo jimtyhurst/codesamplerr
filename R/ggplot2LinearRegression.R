@@ -48,4 +48,4 @@ plotResponseTime <- ggplot(data = performance) +
 
 cowplot::plot_grid(plotErrorRate, plotResponseTime, align = "h")
 
-cowplot::ggsave("ggsave-output.pdf", width = 6, height = 6, units = "in")
+cowplot::ggsave2("ggsave-output.pdf", width = 6, height = 6, units = "in")

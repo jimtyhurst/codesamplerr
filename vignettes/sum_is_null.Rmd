@@ -1,0 +1,70 @@
+---
+title: "sum_is_null"
+author: "[Jim Tyhurst](https://www.jimtyhurst.com/) <br>"
+date: "`r Sys.Date()`"
+output:
+  github_document:
+    toc: true
+    hard_line_breaks: FALSE
+  html_document:
+    toc: true
+    code_folding: hide
+numbersections: true
+vignette: >
+  %\VignetteIndexEntry{COVID_19_Confirmed_Cases}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+```
+
+## Un problème
+
+Est-ce qu'il y a un moyen d'écrire la fonction `sum_is_null` auquel le code ci-dessous fait allusion?
+
+```{r probleme, eval=FALSE}
+d <- tibble::tibble(
+  x = 1:3,
+  y = list(NULL, NA, Inf),
+  z = list(NULL, NULL, 0)
+)
+dplyr::summarise_all(
+  d, ~ sum_is_null # is that doable?
+)
+# desired output:
+# x y z
+# 0 1 2
+```
+
+## Les données
+
+```{r data}
+d <- tibble::tibble(
+  x = 1:3,
+  y = list(NULL, NA, Inf),
+  z = list(NULL, NULL, 0)
+)
+```
+
+## Solution 1
+
+```{r solution1}
+sum_is_null <- function(x) 
+  sum(sapply(x, is.null))
+
+dplyr::summarise_all(d, sum_is_null)
+```
+
+## Solution 2
+
+```{r solution2}
+sum_is_null <- function(x) 
+  sum(lengths(x) < 1)
+
+dplyr::summarise_all(d, list(sum_is_null))
+```

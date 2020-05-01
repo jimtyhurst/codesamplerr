@@ -3,12 +3,12 @@ title: "Puppy Weight Gain"
 author: "[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)"
 date: "`r Sys.Date()`"
 output:
-  html_document:
-    toc: true
-    code_folding: hide
   github_document:
     toc: true
     hard_line_breaks: FALSE
+  html_document:
+    toc: true
+    code_folding: hide
 numbersections: true
 vignette: >
   %\VignetteIndexEntry{Vignette Title}

@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
 [Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)
-2019-05-17
+2020-06-16
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -18,7 +18,7 @@ Puppy Weight Gain
 
 ## tl;dr
 
-![](PuppyWeightGain-2019_files/figure-gfm/reads_and_plots-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/reads_and_plots-1.png)<!-- -->
 
 **Note**: I think there is an error in the weights for 2019-04-26, but I
 did not catch it until after reviewing the weights for 2019-04-27. It is
@@ -173,7 +173,7 @@ weights <- system.file(
 plot_weights(weights, puppy_id_to_color)
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/plots_weights-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/plots_weights-1.png)<!-- -->
 
 ### Weight gain since birth
 
@@ -209,6 +209,7 @@ sorted_weights <- weights %>%
   dplyr::mutate(
     sorted_puppy_id = forcats::fct_reorder(puppy_id, weight_gain, .desc = TRUE)
   )
+#> `summarise()` ungrouping output (override with `.groups` argument)
 # Rebuild the color map, because the order of ids was changed
 #   by the 'fct_reorder' call above.
 sorted_puppy_id_to_color <- purrr::map(
@@ -243,7 +244,7 @@ sorted_weights %>%
     )
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/weight_gains-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/weight_gains-1.png)<!-- -->
 
 ### Mean weight gain since birth by sex
 
@@ -291,6 +292,8 @@ weights %>%
       panel.grid.major = element_line(colour="grey40", size=0.5),
       panel.background = element_rect(fill="snow2")
     )
+#> `summarise()` ungrouping output (override with `.groups` argument)
+#> `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
-![](PuppyWeightGain-2019_files/figure-gfm/mean_weight_gain_by_sex-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/mean_weight_gain_by_sex-1.png)<!-- -->

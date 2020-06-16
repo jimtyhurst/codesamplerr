@@ -2,9 +2,11 @@
 
 # Using packages and functions in default distribution.
 library(grDevices)
+library(datasets)
+library(ggplot2)
 
 make_radar_plots <- function() {
-  stars(mtcars[, 1:7], locations = c(0, 0), radius = FALSE,
+  stars(datasets::mtcars[, 1:7], locations = c(0, 0), radius = FALSE,
         key.loc = c(0, 0), main = "Motor Trend Cars", lty = 2)
 
   ##########

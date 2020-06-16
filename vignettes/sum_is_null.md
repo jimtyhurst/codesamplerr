@@ -1,7 +1,7 @@
 sum\_is\_null
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/) <br>
-2020-04-30
+2020-06-16
 
   - [Un problème](#un-problème)
   - [Les données](#les-données)

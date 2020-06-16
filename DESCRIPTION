@@ -23,5 +23,5 @@ Suggests:
     testthat (>= 2.0.0),
     cowplot (>= 0.7.0),
     devtools (>= 1.13.4)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr

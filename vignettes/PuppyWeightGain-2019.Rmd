@@ -11,7 +11,7 @@ output:
     code_folding: hide
 numbersections: true
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{puppy_weight_gain}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -60,31 +60,31 @@ weights <- raw_weights %>%
 puppy_id_to_color <- c(blue = 'blue', emerald = 'green', orange = 'orange', pink = 'red', purple = 'purple', yellow = 'yellow')
 plot_weights <- function(weights, puppy_id_to_color) {
   weights %>% 
-  mutate(id = factor(puppy_id)) %>% 
+  dplyr::mutate(id = factor(puppy_id)) %>% 
   ggplot(aes(x = date, y = weight, group = puppy_id, color = puppy_id)) + 
-  geom_point(na.rm = TRUE) +
-  geom_line(aes(y = jitter(weight, amount = 0)), na.rm = TRUE) + 
-  scale_color_manual(values=puppy_id_to_color) +
-  ggtitle("Puppy weight by day") +
-  scale_y_continuous(
-    limits = c(weight_lower_bound_oz, weight_upper_bound_oz), 
-    minor_breaks = seq(
-      weight_lower_bound_oz, 
-      weight_upper_bound_oz, 
-      by = 5
-    ),
-    breaks = seq(
-      weight_lower_bound_oz, 
-      weight_upper_bound_oz, 
-      by = 10
-    )
-  ) + 
-  theme(
-    panel.grid.minor = element_line(color="grey60", size=0.5),
-    panel.grid.major = element_line(color="grey40", size=0.5),
-    panel.background = element_rect(fill="snow2")
-  ) +
-  labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
+    geom_point(na.rm = TRUE) +
+    geom_line(aes(y = jitter(weight, amount = 0)), na.rm = TRUE) + 
+    scale_color_manual(values=puppy_id_to_color) +
+    ggtitle("Puppy weight by day") +
+    scale_y_continuous(
+      limits = c(weight_lower_bound_oz, weight_upper_bound_oz), 
+      minor_breaks = seq(
+        weight_lower_bound_oz, 
+        weight_upper_bound_oz, 
+        by = 5
+      ),
+      breaks = seq(
+        weight_lower_bound_oz, 
+        weight_upper_bound_oz, 
+        by = 10
+      )
+    ) + 
+    theme(
+      panel.grid.minor = element_line(color="grey60", size=0.5),
+      panel.grid.major = element_line(color="grey40", size=0.5),
+      panel.background = element_rect(fill="snow2")
+    ) +
+    labs(x = "Date", y = "Weight (ounces)", color = "Puppy")
 }
 plot_weights(weights, puppy_id_to_color) %>% print()
 
@@ -96,8 +96,8 @@ Same puppy weight gain data as above, but presented in table format:
 ```{r print_data, echo = FALSE}
 library(knitr)
 raw_weights %>% 
-  select(date, blue, emerald, orange, pink, purple, yellow) %>% 
-  kable(na.print = "NA")
+  dplyr::select(date, blue, emerald, orange, pink, purple, yellow) %>% 
+  knitr::kable(na.print = "NA")
 ```
 
 ## Context

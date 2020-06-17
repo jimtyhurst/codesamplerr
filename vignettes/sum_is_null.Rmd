@@ -11,7 +11,7 @@ output:
     code_folding: hide
 numbersections: true
 vignette: >
-  %\VignetteIndexEntry{COVID_19_Confirmed_Cases}
+  %\VignetteIndexEntry{sum_is_null}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}

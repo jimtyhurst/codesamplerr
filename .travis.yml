@@ -2,6 +2,16 @@
 
 language: r
 r:
-  - '3.4.3'
+  - '3.6.3'
+warnings_are_errors: false
 sudo: false
 cache: packages
+after_failure:
+  - ./travis-tool.sh dump_logs
+env:
+  global:
+    - NOT_CRAN=TRUE
+addons:
+  apt:
+    sources:
+    - sourceline: 'ppa:marutter/rrutter'

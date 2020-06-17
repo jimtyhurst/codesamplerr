@@ -2,7 +2,7 @@ Distribution of Meetup Days for the [Portland R User Group
 Meetup](https://www.meetup.com/portland-r-user-group/)
 ================
 [Jim Tyhurst](https://www.jimtyhurst.com/)
-2019-03-28
+2020-06-16
 
   - [The Question](#the-question)
   - [Configuration](#configuration)
@@ -42,6 +42,9 @@ library(dplyr)
 library(lubridate)
 #> 
 #> Attaching package: 'lubridate'
+#> The following object is masked from 'package:cowplot':
+#> 
+#>     stamp
 #> The following object is masked from 'package:base':
 #> 
 #>     date
@@ -152,7 +155,7 @@ events %>%
   scale_y_continuous(name = "Number of Events", limits = c(0, 30), breaks = seq(0, 30, by = 5))
 ```
 
-![](DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 The distribution does not seem like a uniform distribution. Tuesday and
 Wednesday are definitely the favored days, although many events are also
@@ -178,7 +181,7 @@ recent_events %>%
   scale_y_continuous(name = "Number of Events", limits = c(0, 30), breaks = seq(0, 30, by = 5))
 ```
 
-![](DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 This *recent* data looks much more uniform than the previous plot of all
 3 years of data, although Monday has clearly been neglected in the past
@@ -204,7 +207,7 @@ events %>%
   scale_y_continuous(name = "Number of Events", limits = c(0, 10), breaks = seq(0, 10, by = 2))
 ```
 
-![](DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 And the distribution of events by year:
 
@@ -225,7 +228,7 @@ events %>%
   scale_y_continuous(name = "Number of Events", limits = c(0, 30), breaks = seq(0, 30, by = 5))
 ```
 
-![](DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/DistributionOfMeetupDays_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 It appears that the [Portland R User
 Group](https://www.meetup.com/portland-r-user-group/) is stable with
@@ -255,6 +258,7 @@ actual_distribution <- events %>%
   dplyr::filter(DayOfWeek >= 2, DayOfWeek <= 5) %>% 
   dplyr::group_by(DayOfWeekLabel) %>% 
   summarise(n = n())
+#> `summarise()` ungrouping output (override with `.groups` argument)
 print(actual_distribution)
 #> # A tibble: 4 x 2
 #>   DayOfWeekLabel     n
@@ -303,6 +307,7 @@ actual_distribution <- recent_events %>%
   dplyr::filter(DayOfWeek >= 2, DayOfWeek <= 5) %>% 
   dplyr::group_by(DayOfWeekLabel) %>% 
   summarise(n = n())
+#> `summarise()` ungrouping output (override with `.groups` argument)
 print(actual_distribution)
 #> # A tibble: 4 x 2
 #>   DayOfWeekLabel     n

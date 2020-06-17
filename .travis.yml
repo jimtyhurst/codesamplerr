@@ -11,4 +11,7 @@ after_failure:
 env:
   global:
     - NOT_CRAN=TRUE
-
+addons:
+  apt:
+    sources:
+    - sourceline: 'ppa:marutter/rrutter'

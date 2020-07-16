@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
+    conflicted (>= 1.0.4),
     cowplot (>= 1.0.0),
     ggplot2 (>= 2.1.0),
     gmp (>= 0.5-12),
@@ -23,5 +24,5 @@ Suggests:
     roxygen2 (>= 6.0.1),
     testthat (>= 2.0.0),
     devtools (>= 1.13.4)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr

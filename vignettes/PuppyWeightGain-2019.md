@@ -1,7 +1,7 @@
 Puppy Weight Gain
 ================
-[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)
-2020-06-16
+[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)<br>
+2020-07-15
 
   - [tl;dr](#tldr)
   - [Context](#context)
@@ -18,7 +18,7 @@ Puppy Weight Gain
 
 ## tl;dr
 
-![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/reads_and_plots-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/reads_and_plots-1.png)<!-- -->
 
 **Note**: I think there is an error in the weights for 2019-04-26, but I
 did not catch it until after reviewing the weights for 2019-04-27. It is
@@ -173,7 +173,7 @@ weights <- system.file(
 plot_weights(weights, puppy_id_to_color)
 ```
 
-![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/plots_weights-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/plots_weights-1.png)<!-- -->
 
 ### Weight gain since birth
 
@@ -244,7 +244,7 @@ sorted_weights %>%
     )
 ```
 
-![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/weight_gains-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/weight_gains-1.png)<!-- -->
 
 ### Mean weight gain since birth by sex
 
@@ -296,4 +296,4 @@ weights %>%
 #> `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
-![](/Users/jimtyhurst/src/r/codesamplerr/vignettes/PuppyWeightGain-2019_files/figure-gfm/mean_weight_gain_by_sex-1.png)<!-- -->
+![](PuppyWeightGain-2019_files/figure-gfm/mean_weight_gain_by_sex-1.png)<!-- -->

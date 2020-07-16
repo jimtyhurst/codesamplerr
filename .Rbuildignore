@@ -3,3 +3,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
+
+# Local project-specific files.
+Rplots.pdf
+ggsave-output.pdf

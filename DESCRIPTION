@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
+    conflicted (>= 1.0.4),
     cowplot (>= 1.0.0),
     ggplot2 (>= 2.1.0),
     gmp (>= 0.5-12),

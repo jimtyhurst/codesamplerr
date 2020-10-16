@@ -1,6 +1,6 @@
 ---
 title: "Puppy Weight Gain"
-author: "[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)"
+author: "[Jim Tyhurst, Ph.D.](https://www.jimtyhurst.com/)<br>"
 date: "`r Sys.Date()`"
 output:
   github_document:
@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 ## tl;dr
 
 ```{r reads_and_plots, echo = FALSE, message = FALSE}
+library(conflicted)
 library(codesamplerr)
 library(readr)
 library(tidyr)
